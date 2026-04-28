@@ -2,124 +2,66 @@
 
 ## Objetivo
 
-Define a `kb/` minima obrigatoria para projetos agenticos com Harness Engineering.
+Define quando e como usar uma camada `kb/` em projetos agenticos com Harness Engineering.
 
-Nao e burocracia. E amortecedor de contexto: sem kb/, cada sessao nova a LLM rele `directives/` do zero e preenche lacunas com suposicoes.
+## Dois usos distintos de kb/
 
-## Regra curta
+### 1. kb/ como biblioteca de ferramentas
 
-Todo projeto com continuidade (mais de uma sessao, mais de um agente, fases sequenciais) deve ter `kb/` criada antes de implementar qualquer agente.
+Guarda referencia de uso de frameworks e ferramentas externas usadas no projeto.
 
-Excecao: prova de conceito curtissima (poucas horas, sem continuidade prevista).
+Exemplos: `kb/crewai/`, `kb/langfuse/`, `kb/chainlit/`, `kb/pydantic/`
 
-## Estrutura obrigatoria
+Cada dominio tem `index.md` (contexto) e `quick-reference.md` (padrao pronto para usar).
+
+**Quando faz sentido:** projeto que adota frameworks complexos (CrewAI, LangChain, LangFuse). A LLM consulta a kb/ para aplicar padroes do framework sem buscar docs externos a cada sessao.
+
+**Alternativa:** MCP context7 (`mcp__context7__*`) busca documentacao atualizada de qualquer biblioteca on demand — dispensa kb/ estatica de ferramentas quando context7 esta disponivel.
+
+### 2. kb/ como contexto de projeto
+
+Guarda resumo denso do estado, dominio e regras do projeto especifico.
+
+Exemplos: `kb/index.md`, `kb/domain.md`, `kb/rules.md`
+
+**Quando faz sentido:** projeto com `directives/` grande demais para reler inteiro a cada sessao, ou com muitas regras de negocio e contratos que mudam com frequencia.
+
+**Quando nao precisa:** projeto com `directives/` pequeno e bem estruturado. Nesse caso, a LLM le `directives/` diretamente e kb/ seria redundante.
+
+## Regra pratica para projetos Harness
+
+| Situacao | kb/ necessaria? |
+|----------|----------------|
+| `directives/` pequeno (< 3 arquivos simples) | nao — ler directives/ diretamente |
+| `directives/` grande ou regras complexas | sim — kb/ de contexto com index, domain, rules |
+| Projeto usa CrewAI, LangFuse, Chainlit | sim — kb/ de ferramentas por framework |
+| context7 MCP disponivel | kb/ de ferramentas dispensavel |
+
+## Estrutura quando kb/ fizer sentido
+
+```text
+kb/
+  [framework]/
+    index.md           — contexto e quando usar
+    quick-reference.md — padrao pronto para copiar
+```
+
+Ou, para contexto de projeto:
 
 ```text
 kb/
   index.md    — estado atual, proximos passos, fontes de verdade
-  domain.md   — agentes, modelos, stack, escopo, fluxo de execucao
+  domain.md   — agentes, modelos, stack, escopo
   rules.md    — regras de negocio + contratos por agente
 ```
 
-Usar `TEMPLATE_KB.md` para gerar os tres arquivos. Nunca gerar do zero.
+## Relacao com directives/
 
-## 1. index.md
+- `directives/` e a fonte de verdade — regras completas com contexto e motivacao
+- `kb/` e o atalho operacional — o que aplicar agora sem reler tudo
 
-### Papel
-
-Orientacao rapida para novas sessoes — onde o projeto esta e o que fazer a seguir.
-
-### O que contem
-
-- versao atual e data
-- status dos gates e testes
-- proximos passos priorizados
-- ponteiros para fontes de verdade (`directives/`, `model_routing.yaml`, `progress/`)
-
-### Pergunta que responde
-
-`Qual o estado atual do projeto e o que fazer agora?`
-
-## 2. domain.md
-
-### Papel
-
-Contexto tecnico e de dominio denso — o que o sistema faz, como e organizado, quem usa LLM.
-
-### O que contem
-
-- o que o sistema faz e o que NAO faz (escopo da versao atual)
-- tabela de agentes: nome, usa LLM, modelo, papel
-- stack: linguagem, frameworks, banco, providers externos
-- arquitetura de sessao DB (quem abre, quem passa, quem nao gerencia)
-- regras de mascaramento antes do LLM (se aplicavel)
-- fluxo de execucao por fase
-
-### Pergunta que responde
-
-`Como este sistema e organizado e como executa?`
-
-## 3. rules.md
-
-### Papel
-
-Regras de negocio e contratos em formato consultavel — para nao ter que reler `directives/` completo.
-
-### O que contem
-
-- tabelas de regras por dominio (ingestao, deteccao, auditoria, relatorio)
-- contratos de saida por agente (campos, tipos)
-- regras de contrato (invalido = fase nao avanca, sem dict puro entre agentes)
-
-### Pergunta que responde
-
-`Quais regras governam o sistema e quais contratos cada agente produz?`
-
-## Diferenca entre kb/ e directives/
-
-- `directives/` e a fonte de verdade — explicacao completa com contexto e motivacao
-- `kb/` e o resumo executavel — o que aplicar agora sem reler tudo
-
-Se conflitarem: `directives/` prevalece. kb/ deve ser atualizada para refletir.
-
-## Quando atualizar
-
-- `index.md` — ao fim de cada fase (estado, proximos passos)
-- `rules.md` — ao adicionar ou modificar regra de negocio ou contrato
-- `domain.md` — ao adicionar agente ou mudar arquitetura
-
-## Estrategia de evolucao
-
-Comecar com os 3 arquivos obrigatorios. Se necessario, adicionar:
-
-```text
-kb/
-  integrations.md       — detalhes de integrações externas
-  validation-patterns.md — padrões de validação recorrentes
-  observability.md      — como rastrear agentes, modelos, status
-```
-
-## Relacao com outros arquivos
-
-| Arquivo | Papel | Substitui kb/? |
-|---------|-------|---------------|
-| `README.md` | Visao geral do projeto | nao |
-| `directives/` | Regras operacionais completas — fonte de verdade | nao |
-| `spec/` | Entrega por fase, requisitos verificaveis | nao |
-| `AGENTS.md` | Comportamento da LLM no runtime | nao |
-| `progress/PROGRESS.md` | Estado atual detalhado | nao — index.md aponta para ele |
-
-## Como a kb/ reduz invencao
-
-Sem kb/, a LLM preenche lacunas com suposicoes sobre:
-
-- qual modelo usar por agente
-- quais campos sao obrigatorios nos contratos
-- o que ja foi implementado e aprovado
-- quais regras de negocio existem
-
-Com kb/ bem mantida, essas informacoes estao disponiveis em 3 arquivos densos sem reler o projeto inteiro.
+Se conflitarem: `directives/` prevalece. Atualizar kb/ para refletir.
 
 ## Conclusao
 
-`kb/` nao e documentacao extra. E o contexto minimo que garante que sessoes futuras comecem do mesmo ponto que a sessao anterior terminou.
+`kb/` e opcional e contextual — nao e obrigatoria no pacote recomendado. Adicionar quando `directives/` for insuficiente para novas sessoes ou quando o projeto adotar frameworks que justifiquem referencia persistente.

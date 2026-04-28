@@ -147,7 +147,7 @@ A pasta `tools/` contem ferramentas de suporte a gestao da base e dos projetos d
 ## Pasta templates/
 
 A pasta `templates/` guarda moldes obrigatorios para reduzir variabilidade na geracao dos artefatos.
-**Todos os 16 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
+**Todos os 15 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
 Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero sem template.
 
 ### Antes de qualquer codigo (bootstrap)
@@ -176,7 +176,6 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - `TEMPLATE_VALIDATION_STATUS.md` — status dos gates por fase
 - `TEMPLATE_EXECUTION_RUNNER.md` — runner narrativo com saida em tempo real por fase e gate
 - `TEMPLATE_TESTS.md` — padrao de testes offline (sem DB, sem LLM) por tipo de agente
-- `TEMPLATE_KB.md` — estrutura minima de kb/ com index, domain e rules para novas sessoes
 
 ## O que e nucleo e o que e opcional
 
@@ -205,7 +204,6 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - **Sessao DB unica no runner** — `run_flow.py` abre sessao e passa para todas as fases. Nunca delegar ao OrchestratorAgent
 - **audit_log por agente** — cada agente registra acao, status e detalhe ao final da sua execucao
 - **Testes offline obrigatorios** — sem DB, sem LLM, rodam em < 5s. Padrao em `TEMPLATE_TESTS.md`
-- **kb/ obrigatorio no pacote recomendado** — `kb/index.md`, `kb/domain.md`, `kb/rules.md`. Sem isso a LLM relê directives/ do zero a cada sessao e preenche lacunas com suposicoes. Padrao em `TEMPLATE_KB.md`
 
 ### Complementar
 
@@ -225,9 +223,8 @@ Fluxo recomendado:
 5. bootstrapar o projeto com `README.md`, `directives/`, `spec/`, `implementation/`, `execution/`, `AGENTS.md`
 6. **usar `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` para validar que README e AGENTS.md cobrem todos os contratos antes de implementar** — sem esse passo, artefatos ficam incompletos
 7. **definir estrategia de modelos por agente antes de implementar** (`10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md`) — evita colocar LLM onde logica deterministica basta
-8. **criar `kb/` com `TEMPLATE_KB.md`** — index, domain e rules antes de implementar qualquer agente. Sem kb/, sessoes futuras recomecam do zero
-9. validar a base antes de implementar a primeira capacidade
-10. quando a primeira capacidade existir, expor um comando unico de onboarding para primeira execucao
+8. validar a base antes de implementar a primeira capacidade
+9. quando a primeira capacidade existir, expor um comando unico de onboarding para primeira execucao
 
 ## Estrutura esperada de um novo projeto
 
@@ -239,7 +236,6 @@ AGENTS.md
 .env.example
 directives/
 spec/
-kb/
 implementation/
 execution/
 tests/
@@ -253,6 +249,7 @@ Dependendo do caso, o projeto pode crescer para incluir:
 contracts/
 evals/
 observability/
+kb/
 templates/
 examples/
 ```

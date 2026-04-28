@@ -30,11 +30,9 @@ Obrigatorio, nesta ordem:
 ### Ao evoluir projeto existente
 
 1. Este `AGENTS.md`
-2. `kb/index.md` do projeto — estado atual, proximos passos, fontes de verdade
-3. `kb/domain.md` do projeto — agentes, modelos, stack, fluxo
-4. `kb/rules.md` do projeto — regras de negocio e contratos por agente
-5. `progress/PROGRESS.md` do projeto
-6. Arquivos diretamente afetados pela tarefa
+2. KB relevante para o dominio da tarefa
+3. `progress/PROGRESS.md` do projeto
+4. Arquivos diretamente afetados pela tarefa
 
 ### Ao atualizar artefatos desta base
 
@@ -179,7 +177,6 @@ Ref: `templates/TEMPLATE_EXECUTION_RUNNER.md`
 6. Usar TEMPLATE_FIRST_INCREMENTAL_CAPABILITY.md → definir menor entrega
 7. Usar TEMPLATE_TASK_CONTRACT.md → contrato por agente
 8. Usar TEMPLATE_MODEL_ROUTING.md → modelo por agente antes de codar
-8a. Usar TEMPLATE_KB.md → criar kb/ (index, domain, rules) antes de implementar qualquer agente
 9. Usar TEMPLATE_IMPLEMENTATION_PHASE.md → fase 1
 10. Usar TEMPLATE_ONBOARDING_FLOW.md → execution/run_onboarding_flow.py
 11. Implementar fase 1
