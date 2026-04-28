@@ -132,10 +132,22 @@ Fluxo disciplinado em fases:
 
 Traz exemplos prontos de preenchimento do prompt mestre para diferentes tipos de projeto.
 
+## Pasta exemplos/
+
+A pasta `exemplos/` contem projetos canonicos completos — demonstracoes end-to-end da base aplicada.
+
+- `exemplos/canonical-minimal/` — Issue Triage Agent: projeto minimo com README, AGENTS.md, directives, spec, contracts, src/agents, execution/run_onboarding_flow.py, model_routing.yaml. Referencia de como um projeto derivado deve ser estruturado.
+
+## Pasta tools/
+
+A pasta `tools/` contem ferramentas de suporte a gestao da base e dos projetos derivados.
+
+- `tools/validate_harness_project.py` — validador automatico de conformidade Harness Engineering. Verifica 11 criterios (estrutura, conteudo, portabilidade). Uso: `python tools/validate_harness_project.py <caminho-do-projeto>`
+
 ## Pasta templates/
 
 A pasta `templates/` guarda moldes obrigatorios para reduzir variabilidade na geracao dos artefatos.
-**Todos os 13 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
+**Todos os 14 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
 Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero sem template.
 
 ### Antes de qualquer codigo (bootstrap)
@@ -162,6 +174,7 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 
 - `TEMPLATE_PROGRESS.md` — estado atual, o que foi feito, bloqueios, proximo passo
 - `TEMPLATE_VALIDATION_STATUS.md` — status dos gates por fase
+- `TEMPLATE_EXECUTION_RUNNER.md` — runner narrativo com saida em tempo real por fase e gate
 
 ## O que e nucleo e o que e opcional
 
