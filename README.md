@@ -147,7 +147,7 @@ A pasta `tools/` contem ferramentas de suporte a gestao da base e dos projetos d
 ## Pasta templates/
 
 A pasta `templates/` guarda moldes obrigatorios para reduzir variabilidade na geracao dos artefatos.
-**Todos os 15 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
+**Todos os 16 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
 Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero sem template.
 
 ### Antes de qualquer codigo (bootstrap)
@@ -176,6 +176,7 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - `TEMPLATE_VALIDATION_STATUS.md` — status dos gates por fase
 - `TEMPLATE_EXECUTION_RUNNER.md` — runner narrativo com saida em tempo real por fase e gate
 - `TEMPLATE_TESTS.md` — padrao de testes offline (sem DB, sem LLM) por tipo de agente
+- `TEMPLATE_KB.md` — estrutura de kb/ por ferramenta com index e quick-reference
 
 ## O que e nucleo e o que e opcional
 

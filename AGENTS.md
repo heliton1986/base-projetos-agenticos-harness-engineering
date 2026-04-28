@@ -30,7 +30,7 @@ Obrigatorio, nesta ordem:
 ### Ao evoluir projeto existente
 
 1. Este `AGENTS.md`
-2. KB relevante para o dominio da tarefa
+2. `kb/[ferramenta]/quick-reference.md` relevante para a tarefa — kb-first, context7 como fallback
 3. `progress/PROGRESS.md` do projeto
 4. Arquivos diretamente afetados pela tarefa
 
