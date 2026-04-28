@@ -144,6 +144,19 @@ Regras:
 - Toda validacao registrada no `audit_log` com status `ok` ou `falhou`
 - `ValidatorAgent` nao usa LLM — validacao Pydantic deterministica
 
+### Testes automatizados (obrigatorio)
+
+Todo projeto derivado deve ter testes offline — sem DB, sem LLM, sem API externa.
+
+Regras:
+- `tests/test_ingestion.py` — testa IngestionAgent com fixture e CSV temporario (`tmp_path`)
+- `tests/test_detector.py` — testa regras fixas via metodos internos, sem chamar LLM. Instanciar com `DetectorAgent.__new__(DetectorAgent)` para evitar `__init__` que exige API key
+- `tests/test_validator.py` — testa contratos validos e invalidos
+- CSV com 1 linha valida + 1 invalida para testar rejeicoes (CSV so com invalidas levanta RuntimeError)
+- Deve rodar em < 5s: `pytest tests/ -v`
+
+Ref: `templates/TEMPLATE_TESTS.md`
+
 ### Atualizacao de progress/ ao final de cada fase
 
 Faz parte da fase — nao e passo separado, nao requer confirmacao.
