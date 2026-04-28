@@ -246,12 +246,23 @@ Nunca use `BlockingError` para erros tecnicos recuperaveis — esses vao para o 
 
 ## Integracao com o chat (LLM)
 
-Quando a LLM executar este runner, deve anunciar cada passo em texto antes da tool call:
+Quando a LLM executar este runner, seguir o protocolo completo de `AGENTS.md`:
 
+**Antes da tool call** — contextualizar o que vai executar:
 ```
-[Fase 1 — Bootstrap] iniciando...
-*(executa tool)*
-[Gate — Ambiente] APROVADO ✓
+[Fase 3 — Deteccao] iniciando DetectorAgent.
+Regras fixas primeiro, depois LLM (claude-sonnet-4-6) com valores mascarados.
 ```
+
+**Depois da tool call** — reportar resultado detalhado:
+```
+Fase 3 CONCLUIDA. DetectorAgent (claude-sonnet-4-6):
+- 9 lancamentos analisados
+- 2 inconsistencias: duplicata_suspeita [critica] + descricao_suspeita [media]
+Proximo: Fase 4 — ReporterAgent gera RelatorioExecutivo.
+```
+
+**Atualizacao de progress/** — automatica ao fim de cada fase, sem pedir confirmacao.
+Formato de data: `YYYY-MM-DD HH:MM`.
 
 Ver instrucao completa em `AGENTS.md` — secao "Protocolo narrativo no chat".

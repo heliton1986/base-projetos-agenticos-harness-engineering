@@ -61,7 +61,21 @@ Nao pedir confirmacao a cada passo intermediario. Pedir apenas em bloqueio real.
 
 Quando executar qualquer fase, gate ou agente — anunciar em texto no chat antes e depois de cada tool call.
 
-Formato obrigatorio:
+### Antes da tool call (contexto do que vai fazer)
+
+Explicar em 1-2 linhas:
+- o que a fase/gate vai executar
+- qual agente sera acionado e com qual modelo (se LLM)
+- o que se espera como resultado
+
+Exemplo:
+```
+[Fase 3 — Deteccao] iniciando DetectorAgent.
+Regras fixas primeiro (duplicata, valor alto, descricao suspeita), depois LLM (claude-sonnet-4-6)
+para analise semantica dos candidatos restantes, com valores mascarados por faixa.
+```
+
+### Formato durante execucao
 
 ```
 [Fase X — Nome]        iniciando...
@@ -72,11 +86,36 @@ Formato obrigatorio:
 [Fase X — Nome]        CONCLUIDA ✓
 ```
 
-Regras:
-- Nunca executar tool call silenciosamente — sempre anunciar antes
-- Sempre confirmar resultado depois (APROVADO / FALHOU / BLOQUEADO)
-- Se falhou: informar o erro antes de corrigir
+### Depois da tool call (resultado detalhado)
+
+Reportar no chat:
+- modelo usado (se LLM foi acionado)
+- quantidade de itens processados
+- resultado concreto: inconsistencias encontradas com tipo e severidade, lancamentos normalizados, status do relatorio
+- qualquer detalhe relevante que aparece no terminal mas fica colapsado no chat
+
+Exemplo pos-execucao:
+```
+Fase 3 CONCLUIDA. DetectorAgent (claude-sonnet-4-6):
+- 9 lancamentos analisados
+- 2 inconsistencias: duplicata_suspeita [critica] "Pagamento fornecedor ABC" + descricao_suspeita [media] "teste"
+- valores enviados ao LLM mascarados como faixas (ex: 1k-10k)
+Proximo: Fase 4 — ReporterAgent agrega e gera RelatorioExecutivo.
+```
+
+### Regras
+
+- Nunca executar tool call silenciosamente — sempre anunciar antes com contexto
+- Sempre reportar resultado detalhado depois (nao so APROVADO/FALHOU)
+- Se falhou: informar erro exato antes de corrigir
 - Se bloqueio real: parar e explicar o que precisa de intervencao humana
+- Output do Bash fica colapsado na UI — o chat e a unica visibilidade completa para o usuario
+
+### Atualizacao de progress/ ao final de cada fase
+
+Faz parte da fase — nao e passo separado, nao requer confirmacao.
+Ao concluir qualquer fase ou gate: atualizar `progress/PROGRESS.md` e `progress/VALIDATION_STATUS.md` automaticamente.
+Formato de data obrigatorio: `YYYY-MM-DD HH:MM`.
 
 Este protocolo garante visibilidade identica no chat e no terminal.
 Ref: `templates/TEMPLATE_EXECUTION_RUNNER.md`
