@@ -255,3 +255,16 @@ Este padrao transforma a validacao de algo implicito em algo estrutural.
 Em uma frase:
 
 `Builder constrói, Validator verifica, Orchestrator aprova; o task contract impede que o sistema avance no escuro.`
+
+## Referencias
+
+Os padroes descritos aqui sao agnósticos de modelo e provedor. As fontes abaixo os nomearam e documentaram na literatura de sistemas agenticos.
+
+- **Anthropic — Building effective agents** (2024): descreve o padrao `evaluator-optimizer` — um agente gera output, outro avalia e retroalimenta o loop de correcao. Equivalente direto ao Builder/Validator deste documento.
+  Disponivel em: https://www.anthropic.com/research/building-effective-agents
+
+- **Yao et al. — ReAct: Synergizing Reasoning and Acting in Language Models** (2022): fundamento academico de agentes que intercalam raciocinio e acao. A ideia de loop explicito (agir → observar → corrigir) sustenta o padrao de loop de correcao descrito aqui.
+  Disponivel em: https://arxiv.org/abs/2210.03629
+
+- **Chase — Cognitive Architectures for Language Agents** (2023): taxonomia de arquiteturas agênticas incluindo padroes de reflexao e autocorrecao alinhados ao loop Builder/Validator.
+  Disponivel em: https://arxiv.org/abs/2309.02427

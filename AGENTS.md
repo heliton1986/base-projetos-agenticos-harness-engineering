@@ -94,6 +94,18 @@ templates/            moldes obrigatorios — como gerar cada artefato
 prompts/              prompts reutilizaveis por fase
 ```
 
+## Eixo interativo vs programatico
+
+Esta base opera em dois eixos. A LLM deve saber em qual esta atuando.
+
+**Interativo:** humano + LLM via interface (Claude Pro, Claude Code). Tarefas: editar base, ajustar prompts, revisar contratos, aprovar decisoes. Modelo: o disponivel para o humano via subscription.
+
+**Programatico:** codigo chamando API sem intervencao humana. Tarefas: agentes executando fluxos, classificando, validando, reportando. Modelo: definido por papel em `model_routing.yaml`, otimizado por custo e criticidade.
+
+Regra: nunca assumir que um agente e programatico sem que isso esteja documentado em `AGENTS.md` do projeto e em `model_routing.yaml`.
+
+Ref: `10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md` — secao "Eixo interativo vs programatico".
+
 ## Quando perguntar ao humano
 
 - Ambiguidade de regra de negocio ou regulatoria

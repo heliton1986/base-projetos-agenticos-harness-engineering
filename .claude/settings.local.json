@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python tools/validate_harness_project.py exemplos/canonical-minimal)",
+      "Bash(python tools/validate_harness_project.py /tmp)",
+      "Bash(echo \"exit: $?\")"
+    ]
+  }
+}

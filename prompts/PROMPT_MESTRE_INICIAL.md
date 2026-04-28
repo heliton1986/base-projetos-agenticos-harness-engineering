@@ -14,23 +14,23 @@ Substitua os campos entre colchetes e envie para a LLM.
 
 Leia a base de harness em:
 
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/FRAMEWORK_PRATICO_HARNESS_AGENTIC_SYSTEMS.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/DOE_OPERACIONAL_PARA_HARNESS.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/BOOTSTRAP_PROJETO_AGENTICO.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/CHECKLIST_PARA_GERAR_AGENTS_MD.md`
+- `[HARNESS_BASE_PATH]/FRAMEWORK_PRATICO_HARNESS_AGENTIC_SYSTEMS.md`
+- `[HARNESS_BASE_PATH]/DOE_OPERACIONAL_PARA_HARNESS.md`
+- `[HARNESS_BASE_PATH]/BOOTSTRAP_PROJETO_AGENTICO.md`
+- `[HARNESS_BASE_PATH]/CHECKLIST_PARA_GERAR_AGENTS_MD.md`
 
 Se fizer sentido enriquecer a base com camadas opcionais de apoio, consulte tambem:
 
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/ESTRUTURA_OPCIONAL_KB_REFERENCES_VISUALS_EXAMPLES.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/KB_MINIMA_PARA_PROJETOS_AGENTICOS.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/FRONTEND_OBSERVAVEL_PARA_AGENTES.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/templates/TEMPLATE_PROGRESS.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/templates/TEMPLATE_VALIDATION_STATUS.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md`
-- `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering/13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md`
+- `[HARNESS_BASE_PATH]/ESTRUTURA_OPCIONAL_KB_REFERENCES_VISUALS_EXAMPLES.md`
+- `[HARNESS_BASE_PATH]/KB_MINIMA_PARA_PROJETOS_AGENTICOS.md`
+- `[HARNESS_BASE_PATH]/PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md`
+- `[HARNESS_BASE_PATH]/FRONTEND_OBSERVAVEL_PARA_AGENTES.md`
+- `[HARNESS_BASE_PATH]/templates/TEMPLATE_PROGRESS.md`
+- `[HARNESS_BASE_PATH]/templates/TEMPLATE_VALIDATION_STATUS.md`
+- `[HARNESS_BASE_PATH]/10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md`
+- `[HARNESS_BASE_PATH]/11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md`
+- `[HARNESS_BASE_PATH]/12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md`
+- `[HARNESS_BASE_PATH]/13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md`
 
 Quero iniciar um novo projeto agentico em:
 

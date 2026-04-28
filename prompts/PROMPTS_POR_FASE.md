@@ -11,7 +11,7 @@ A ideia e evitar implementacao one-shot e trabalhar em etapas controladas.
 Use este prompt para iniciar o projeto.
 
 ```text
-Leia a base de harness em `/var/home/heliton/Documents/Projetos/harness-engineering/base-projetos-agenticos-harness-engineering` e me ajude a definir um novo projeto agentico.
+Leia a base de harness em `[HARNESS_BASE_PATH]` e me ajude a definir um novo projeto agentico.
 
 Quero construir: [OBJETIVO]
 Dominio: [DOMINIO]

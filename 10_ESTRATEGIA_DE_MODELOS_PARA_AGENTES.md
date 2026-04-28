@@ -373,6 +373,60 @@ Em uma frase:
 
 `Orquestradores decidem, executores operam, validadores protegem o sistema; a estrategia de modelo deve refletir essa diferenca de responsabilidade.`
 
+## Referencias
+
+Os padroes descritos aqui sao agnósticos de modelo e provedor. As fontes abaixo documentam a pratica de roteamento de modelos por papel em sistemas agenticos.
+
+- **Anthropic — Building effective agents** (2024): recomenda explicitamente usar modelos diferentes por papel — orchestrators com maior capacidade de julgamento, subagentes com modelos mais economicos para tarefas delimitadas.
+  Disponivel em: https://www.anthropic.com/research/building-effective-agents
+
+- **OpenAI — A practical guide to building agents** (2025): discute estrategia de selecao de modelo por complexidade de tarefa e custo operacional dentro de sistemas multi-agent.
+  Disponivel em: https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
+
+- **Chase — Cognitive Architectures for Language Agents** (2023): categoriza papeis em sistemas agenticos (planner, executor, critic) com implicacoes para escolha de modelo por responsabilidade.
+  Disponivel em: https://arxiv.org/abs/2309.02427
+
+
+## Eixo interativo vs programatico
+
+Um sistema com Harness Engineering opera em dois eixos distintos. A estrategia de modelos deve refletir essa diferenca.
+
+### Interativo
+
+Quem opera: humano + LLM via interface (Claude Pro, Claude Code, chat).
+
+Exemplos de tarefas:
+- editar diretivas e contratos
+- ajustar prompts de agentes
+- revisar spec e gates
+- iterar sobre a base
+- aprovar decisoes arquiteturais
+
+Modelo adequado: o mais capaz disponivel para o humano (ex: Claude Opus, Claude Sonnet via Pro).
+Custo: absorvido pela subscription do usuario, nao pela API do projeto.
+
+### Programatico
+
+Quem opera: codigo Python chamando API diretamente, sem intervencao humana.
+
+Exemplos de tarefas:
+- OrchestratorAgent coordenando subagentes
+- ClassifierAgent classificando via LLM
+- ValidatorAgent verificando gates
+- ReporterAgent gerando relatorio
+
+Modelo adequado: definido por papel (ver secoes acima) — otimizado por custo, latencia e criticidade.
+Custo: cobrado por token via API key do projeto.
+
+### Regra pratica
+
+Nao misturar os dois eixos no mesmo fluxo sem documentar explicitamente.
+
+Se um agente pode ser acionado tanto por humano quanto por codigo, especifique:
+- quando e interativo (humano decide)
+- quando e programatico (codigo decide)
+
+Documente isso em `AGENTS.md` do projeto e em `model_routing.yaml`.
 
 ## Observabilidade da estrategia
 

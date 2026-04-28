@@ -1,0 +1,23 @@
+orchestrator_agent:
+  model: null
+  provider: null
+  via: code
+  justificativa: Logica deterministica de fluxo, sem LLM
+
+classifier_agent:
+  model: claude-sonnet-4-6
+  provider: anthropic
+  via: api
+  justificativa: Raciocinio sobre texto ambiguo para classificacao
+
+validator_agent:
+  model: null
+  provider: null
+  via: code
+  justificativa: Validacao de schema Pydantic + regras de negocio, deterministica
+
+reporter_agent:
+  model: null
+  provider: null
+  via: code
+  justificativa: Formatacao deterministica de IssueReport

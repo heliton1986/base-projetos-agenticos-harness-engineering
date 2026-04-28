@@ -226,6 +226,19 @@ Em uma frase:
 
 `O protocolo diz o que fazer; este documento diz quem faz o que.`
 
+## Referencias
+
+Os padroes descritos aqui sao agnósticos de modelo e provedor. As fontes abaixo nomearam e documentaram o padrao orchestrator-workers na literatura.
+
+- **Anthropic — Building effective agents** (2024): nomeia explicitamente o padrao `orchestrator-workers` — "Orchestrators direct agents to use tools or undertake tasks with the intention of completing some broader goal. Workers follow orchestrator directions." Equivalente direto ao modelo descrito neste documento.
+  Disponivel em: https://www.anthropic.com/research/building-effective-agents
+
+- **OpenAI — A practical guide to building agents** (2025): descreve arquitetura multi-agent com orquestrador central coordenando subagentes especializados, incluindo handoffs e estrategia de modelo por papel.
+  Disponivel em: https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
+
+- **Yao et al. — ReAct** (2022): base academica do loop executar → observar → corrigir que sustenta o fluxo operacional do ExecutionAgent e FixAgent neste documento.
+  Disponivel em: https://arxiv.org/abs/2210.03629
+
 
 ## Observabilidade
 

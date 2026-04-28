@@ -139,3 +139,16 @@ Ela limita a criacao irresponsavel de papeis sem necessidade.
 Em uma frase:
 
 `Novos agentes sao bem-vindos quando trazem especializacao real, e nao apenas ornamentacao arquitetural.`
+
+## Referencias
+
+Os padroes descritos aqui sao agnósticos de modelo e provedor. As fontes abaixo sustentam os criterios de criacao e especializacao de papeis agenticos.
+
+- **Anthropic — Building effective agents** (2024): discute quando usar agente unico vs multi-agent, e os criterios de especializacao de subagentes por responsabilidade. Base direta para as perguntas de decisao deste documento.
+  Disponivel em: https://www.anthropic.com/research/building-effective-agents
+
+- **Anthropic — Model Context Protocol** (2024): define como agentes com ferramentas (tool use) devem ser especificados, com escopo, inputs e outputs claros — alinhado ao checklist de estrutura minima para novo papel descrito aqui.
+  Disponivel em: https://modelcontextprotocol.io/introduction
+
+- **Chase — Cognitive Architectures for Language Agents** (2023): taxonomia de papeis agenticos (planner, executor, critic, memory) com criterios de quando separar responsabilidades em agentes distintos.
+  Disponivel em: https://arxiv.org/abs/2309.02427
