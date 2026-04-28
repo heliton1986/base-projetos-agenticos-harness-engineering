@@ -2,209 +2,124 @@
 
 ## Objetivo
 
-Este documento define uma camada minima de `kb/` para projetos agenticos que usam `Harness Engineering`.
+Define a `kb/` minima obrigatoria para projetos agenticos com Harness Engineering.
 
-A ideia nao e obrigar todo projeto a nascer com uma base de conhecimento grande.
-A ideia e definir o menor conjunto de conhecimento persistente que tende a gerar valor real para humanos e LLMs.
+Nao e burocracia. E amortecedor de contexto: sem kb/, cada sessao nova a LLM rele `directives/` do zero e preenche lacunas com suposicoes.
 
 ## Regra curta
 
-Se o projeto for muito curto ou puramente exploratorio, a `kb/` pode nao existir no dia 1.
+Todo projeto com continuidade (mais de uma sessao, mais de um agente, fases sequenciais) deve ter `kb/` criada antes de implementar qualquer agente.
 
-Se o projeto tiver continuidade, multiplas sessoes, mais de uma integracao ou risco de reexplicacao recorrente, vale muito considerar uma `kb/` minima.
+Excecao: prova de conceito curtissima (poucas horas, sem continuidade prevista).
 
-## O que e uma KB minima
-
-Uma `kb/` minima e um pequeno conjunto de arquivos reutilizaveis que preserva contexto importante do projeto sem depender apenas de:
-
-- memoria da conversa
-- README generico
-- prompts repetidos
-- reexplicacoes manuais
-
-## Estrutura recomendada
+## Estrutura obrigatoria
 
 ```text
 kb/
-  project-operating-model.md
-  architecture.md
-  stack.md
+  index.md    — estado atual, proximos passos, fontes de verdade
+  domain.md   — agentes, modelos, stack, escopo, fluxo de execucao
+  rules.md    — regras de negocio + contratos por agente
 ```
 
-## 1. project-operating-model.md
+Usar `TEMPLATE_KB.md` para gerar os tres arquivos. Nunca gerar do zero.
+
+## 1. index.md
 
 ### Papel
 
-Guardar como o projeto opera no dia a dia.
+Orientacao rapida para novas sessoes — onde o projeto esta e o que fazer a seguir.
 
-### O que pode conter
+### O que contem
 
-- como o agente deve trabalhar
-- regras de handoff
-- principios de validacao
-- limites de autonomia
-- criterios gerais de pronto
-- convencoes de memoria operacional
-- quando usar agente unico ou multi-agent
+- versao atual e data
+- status dos gates e testes
+- proximos passos priorizados
+- ponteiros para fontes de verdade (`directives/`, `model_routing.yaml`, `progress/`)
 
 ### Pergunta que responde
 
-`Como este projeto funciona operacionalmente?`
+`Qual o estado atual do projeto e o que fazer agora?`
 
-## 2. architecture.md
+## 2. domain.md
 
 ### Papel
 
-Guardar a arquitetura viva do sistema.
+Contexto tecnico e de dominio denso — o que o sistema faz, como e organizado, quem usa LLM.
 
-### O que pode conter
+### O que contem
 
-- principais componentes
-- fluxo entre agentes
-- stores
-- tools
-- integracoes
-- pontos de validacao
-- papel de cada camada
+- o que o sistema faz e o que NAO faz (escopo da versao atual)
+- tabela de agentes: nome, usa LLM, modelo, papel
+- stack: linguagem, frameworks, banco, providers externos
+- arquitetura de sessao DB (quem abre, quem passa, quem nao gerencia)
+- regras de mascaramento antes do LLM (se aplicavel)
+- fluxo de execucao por fase
 
 ### Pergunta que responde
 
-`Como este sistema e organizado tecnicamente?`
+`Como este sistema e organizado e como executa?`
 
-## 3. stack.md
+## 3. rules.md
 
 ### Papel
 
-Guardar as decisoes tecnicas e convencoes da stack principal.
+Regras de negocio e contratos em formato consultavel — para nao ter que reler `directives/` completo.
 
-### O que pode conter
+### O que contem
 
-- frameworks usados
-- bibliotecas principais
-- convencoes tecnicas
-- boas praticas da stack
-- padroes de implementacao recorrentes
-- o que evitar
+- tabelas de regras por dominio (ingestao, deteccao, auditoria, relatorio)
+- contratos de saida por agente (campos, tipos)
+- regras de contrato (invalido = fase nao avanca, sem dict puro entre agentes)
 
 ### Pergunta que responde
 
-`Como esta stack deve ser usada neste projeto?`
+`Quais regras governam o sistema e quais contratos cada agente produz?`
 
-## Quando a KB minima faz sentido
+## Diferenca entre kb/ e directives/
 
-Ela faz sentido quando pelo menos uma destas condicoes aparece:
+- `directives/` e a fonte de verdade — explicacao completa com contexto e motivacao
+- `kb/` e o resumo executavel — o que aplicar agora sem reler tudo
 
-- o projeto vai durar mais de alguns dias
-- ha multiplas sessoes com LLMs
-- ha mais de uma integracao importante
-- o agente esta repetindo erros ou reexplicacoes
-- ha mais de um agente ou mais de um fluxo relevante
-- existe chance de reaproveitar o conhecimento em projetos futuros
+Se conflitarem: `directives/` prevalece. kb/ deve ser atualizada para refletir.
 
-## Quando nao precisa no inicio
+## Quando atualizar
 
-Pode nao precisar no dia 1 quando:
-
-- o projeto e uma prova de conceito curtissima
-- a arquitetura ainda esta indefinida
-- nao ha stack consolidada ainda
-- a meta e apenas validar uma ideia em poucas horas
-
-## Relacao com outros arquivos
-
-### README.md
-
-- contextualiza o projeto em nivel geral
-- nao substitui a KB minima
-
-### directives/
-
-- guarda regras operacionais de dominio
-- complementa a KB minima
-
-### spec/
-
-- organiza a entrega por fase
-- nao substitui a KB minima
-
-### AGENTS.md
-
-- diz como o agente deve agir no runtime do projeto
-- pode se apoiar na KB minima
-
-## Diferenca entre KB minima e directives/
-
-- `kb/` guarda conhecimento mais estavel e reaproveitavel
-- `directives/` guarda regras operacionais e de dominio mais diretamente ligadas aos fluxos
-
-Resumo pratico:
-
-- `kb/` ensina o projeto
-- `directives/` orienta a operacao do projeto
-
-## Diferenca entre KB minima e references/
-
-- `kb/` deve ser mais operacional e reutilizavel
-- `references/` pode guardar material mais conceitual, comparativo ou de fundamentacao
-
-## Recomendacao pratica
-
-Se houver duvida, use esta regra:
-
-- projeto curto: sem `kb/` no inicio ou apenas um arquivo leve
-- projeto com continuidade: criar `kb/` minima
-- projeto serio: evoluir a `kb/` minima para uma camada mais rica
+- `index.md` — ao fim de cada fase (estado, proximos passos)
+- `rules.md` — ao adicionar ou modificar regra de negocio ou contrato
+- `domain.md` — ao adicionar agente ou mudar arquitetura
 
 ## Estrategia de evolucao
 
-Uma boa estrategia e:
-
-### Etapa 1
-
-Criar apenas:
+Comecar com os 3 arquivos obrigatorios. Se necessario, adicionar:
 
 ```text
 kb/
-  project-operating-model.md
+  integrations.md       — detalhes de integrações externas
+  validation-patterns.md — padrões de validação recorrentes
+  observability.md      — como rastrear agentes, modelos, status
 ```
 
-### Etapa 2
+## Relacao com outros arquivos
 
-Adicionar:
+| Arquivo | Papel | Substitui kb/? |
+|---------|-------|---------------|
+| `README.md` | Visao geral do projeto | nao |
+| `directives/` | Regras operacionais completas — fonte de verdade | nao |
+| `spec/` | Entrega por fase, requisitos verificaveis | nao |
+| `AGENTS.md` | Comportamento da LLM no runtime | nao |
+| `progress/PROGRESS.md` | Estado atual detalhado | nao — index.md aponta para ele |
 
-```text
-kb/
-  architecture.md
-  stack.md
-```
+## Como a kb/ reduz invencao
 
-### Etapa 3
+Sem kb/, a LLM preenche lacunas com suposicoes sobre:
 
-Se houver necessidade, evoluir para arquivos mais especificos, como:
+- qual modelo usar por agente
+- quais campos sao obrigatorios nos contratos
+- o que ja foi implementado e aprovado
+- quais regras de negocio existem
 
-```text
-kb/
-  integrations.md
-  validation-patterns.md
-  multi-agent-patterns.md
-  observability.md
-```
+Com kb/ bem mantida, essas informacoes estao disponiveis em 3 arquivos densos sem reler o projeto inteiro.
 
 ## Conclusao
 
-Uma `kb/` minima nao deve ser tratada como burocracia. Ela deve ser tratada como amortecedor de contexto e reaproveitamento.
-
-Em uma frase:
-
-`Nem todo projeto precisa nascer com uma KB grande, mas quase todo projeto agentico com continuidade se beneficia de uma KB minima bem escolhida.`
-
-## Como a KB minima reduz invencao
-
-A `kb/` nao serve apenas para guardar contexto. Ela tambem serve para evitar que a LLM preencha lacunas sensiveis com suposicoes soltas.
-
-Em projetos com dados de negocio, especialmente `financas`, vale usar a KB minima para registrar pelo menos:
-
-- como representar inconsistencias
-- como consolidar saidas
-- quais campos sao sensiveis
-- quais suposicoes padrao sao aceitaveis e quais exigem confirmacao
+`kb/` nao e documentacao extra. E o contexto minimo que garante que sessoes futuras comecem do mesmo ponto que a sessao anterior terminou.
