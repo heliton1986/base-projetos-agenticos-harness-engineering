@@ -121,6 +121,29 @@ Formato sugerido (adaptar ao dominio do projeto):
 - Se bloqueio real: parar e explicar o que precisa de intervencao humana
 - Output do Bash fica colapsado na UI — tabela no chat e a unica visibilidade completa para o usuario
 
+### ValidatorAgent como gate entre fases (obrigatorio)
+
+Todo projeto derivado deve ter um `ValidatorAgent` que revalida o contrato de saida de cada agente antes de passar ao proximo.
+
+Padrao obrigatorio apos cada agente no `run_flow.py`:
+
+```python
+def _validar_contrato(session, run_id, instancia, nome_agente: str) -> None:
+    from src.agents.validator_agent import ValidatorAgent
+    from src.db.audit import registrar
+    vr = ValidatorAgent().validar_instancia(instancia)
+    registrar(session, run_id, "ValidatorAgent", f"validacao_{type(instancia).__name__}",
+              "ok" if vr.valido else "falhou", {"erros": vr.erros})
+    if not vr.valido:
+        raise RuntimeError(f"Contrato {vr.contrato_validado} invalido apos {nome_agente}: {vr.erros}")
+```
+
+Regras:
+- Gate `Validacao Contrato` aparece no terminal apos cada gate de agente
+- Contrato invalido para o fluxo imediatamente — nao propaga dado corrompido
+- Toda validacao registrada no `audit_log` com status `ok` ou `falhou`
+- `ValidatorAgent` nao usa LLM — validacao Pydantic deterministica
+
 ### Atualizacao de progress/ ao final de cada fase
 
 Faz parte da fase — nao e passo separado, nao requer confirmacao.

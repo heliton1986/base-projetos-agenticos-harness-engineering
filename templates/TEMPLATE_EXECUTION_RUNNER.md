@@ -159,6 +159,17 @@ def fase_1_bootstrap(runner: RunnerNarrativo) -> None:
             pass
 
 
+def _validar_contrato(session, run_id, instancia, nome_agente: str) -> None:
+    """Gate de validacao entre fases — revalida contrato Pydantic antes de passar ao proximo agente."""
+    from src.agents.validator_agent import ValidatorAgent
+    from src.db.audit import registrar
+    vr = ValidatorAgent().validar_instancia(instancia)
+    registrar(session, run_id, "ValidatorAgent", f"validacao_{type(instancia).__name__}",
+              "ok" if vr.valido else "falhou", {"erros": vr.erros})
+    if not vr.valido:
+        raise RuntimeError(f"Contrato {vr.contrato_validado} invalido apos {nome_agente}: {vr.erros}")
+
+
 def fase_2_primeira_capacidade(runner: RunnerNarrativo, session) -> None:
     with runner.fase(2, "[NOME_DA_CAPACIDADE]"):
         log("  [OrchestratorAgent]", "iniciando fluxo...")
@@ -166,9 +177,12 @@ def fase_2_primeira_capacidade(runner: RunnerNarrativo, session) -> None:
         with _GateContext("[GATE_DA_FASE]"):
             # executar primeira capacidade incremental
             # acionar agentes
-            # validar contrato de saida
             # registrar em audit_log via: registrar(session, run_id, agente, acao, status, detalhe)
             pass
+
+        # Gate obrigatorio apos cada agente — para o fluxo se contrato invalido
+        with _GateContext("Validacao Contrato"):
+            _validar_contrato(session, resultado.run_id, resultado, "[NOME_AGENTE]")
 
         log("  [ReporterAgent]", "gerando relatorio...")
 
