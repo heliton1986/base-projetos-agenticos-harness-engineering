@@ -147,7 +147,7 @@ A pasta `tools/` contem ferramentas de suporte a gestao da base e dos projetos d
 ## Pasta templates/
 
 A pasta `templates/` guarda moldes obrigatorios para reduzir variabilidade na geracao dos artefatos.
-**Todos os 14 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
+**Todos os 15 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
 Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero sem template.
 
 ### Antes de qualquer codigo (bootstrap)
@@ -197,6 +197,13 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - `12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md` — handoff entre agentes e distribuicao de execucao
 - `13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md` — rastreabilidade de agente, modelo, status e retries
 - `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` — guia incremental de entrega por fases verificaveis
+
+### Padroes obrigatorios de execucao (derivados de projetos reais)
+
+- **ValidatorAgent como gate entre fases** — revalida contrato Pydantic de saida de cada agente antes de passar ao proximo. Padrao em `AGENTS.md` e `TEMPLATE_EXECUTION_RUNNER.md`
+- **Sessao DB unica no runner** — `run_flow.py` abre sessao e passa para todas as fases. Nunca delegar ao OrchestratorAgent
+- **audit_log por agente** — cada agente registra acao, status e detalhe ao final da sua execucao
+- **Testes offline obrigatorios** — sem DB, sem LLM, rodam em < 5s. Padrao em `TEMPLATE_TESTS.md`
 
 ### Complementar
 
