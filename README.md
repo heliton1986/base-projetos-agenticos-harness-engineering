@@ -285,6 +285,30 @@ Bloqueio real = ambiguidade de regra de negocio, credencial ausente, risco de es
 
 Detalhe completo: `11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md`
 
+### Protocolo narrativo no chat (obrigatorio)
+
+Output do Bash fica colapsado na UI — tabela no chat e a unica visibilidade completa para o usuario.
+
+**Antes de cada tool call:** anunciar em 1-2 linhas o que vai executar, qual agente, qual modelo (se LLM), o que se espera.
+
+**Depois de cada fase:** imprimir tabela no chat com modelo usado, itens processados, resultado por agente:
+
+```
+[Fase 3 — Deteccao] CONCLUIDA ✓
+| Agente        | Modelo            | Resultado                                                   |
+|---------------|-------------------|-------------------------------------------------------------|
+| DetectorAgent | claude-sonnet-4-6 | 2 inconsistencias: duplicata_suspeita [critica], descricao_suspeita [media] |
+
+[Fase 4 — Relatorio] CONCLUIDA ✓
+| Agente        | Status         | Total lancamentos | Total inconsistencias |
+|---------------|----------------|-------------------|-----------------------|
+| ReporterAgent | requer_revisao | 9                 | 2                     |
+```
+
+Regra: nunca executar tool call silenciosamente. Sempre tabela de resultado depois de cada fase — nao so APROVADO/FALHOU.
+
+Padrao completo com formato de fase/gate: `AGENTS.md` — secao "Protocolo narrativo no chat".
+
 ## Estado atual da base
 
 Ver `16_STATUS_DA_BASE_HARNESS.md` para avaliacao sintetica do que esta maduro, o que e obrigatorio vs complementar, e o que ainda pode evoluir.
