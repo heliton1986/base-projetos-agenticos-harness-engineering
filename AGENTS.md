@@ -86,30 +86,40 @@ para analise semantica dos candidatos restantes, com valores mascarados por faix
 [Fase X — Nome]        CONCLUIDA ✓
 ```
 
-### Depois da tool call (resultado detalhado)
+### Depois da tool call (resultado por fase — obrigatorio)
 
-Reportar no chat:
+Apos cada fase, imprimir no chat tabela ou bloco com:
 - modelo usado (se LLM foi acionado)
 - quantidade de itens processados
-- resultado concreto: inconsistencias encontradas com tipo e severidade, lancamentos normalizados, status do relatorio
-- qualquer detalhe relevante que aparece no terminal mas fica colapsado no chat
+- resultado concreto por agente: tipo/severidade de inconsistencias, status, totais
+- qualquer detalhe que aparece no terminal mas fica colapsado na UI
 
-Exemplo pos-execucao:
+Formato sugerido (adaptar ao dominio do projeto):
+
 ```
-Fase 3 CONCLUIDA. DetectorAgent (claude-sonnet-4-6):
-- 9 lancamentos analisados
-- 2 inconsistencias: duplicata_suspeita [critica] "Pagamento fornecedor ABC" + descricao_suspeita [media] "teste"
-- valores enviados ao LLM mascarados como faixas (ex: 1k-10k)
-Proximo: Fase 4 — ReporterAgent agrega e gera RelatorioExecutivo.
+[Fase 2 — Ingestao] CONCLUIDA ✓
+| Agente         | Resultado                          |
+|----------------|------------------------------------|
+| IngestionAgent | 9 lancamentos normalizados, 1 erro |
+
+[Fase 3 — Deteccao] CONCLUIDA ✓
+| Agente        | Modelo              | Resultado                                        |
+|---------------|---------------------|--------------------------------------------------|
+| DetectorAgent | claude-sonnet-4-6   | 2 inconsistencias: duplicata_suspeita [critica], descricao_suspeita [media] |
+
+[Fase 4 — Relatorio] CONCLUIDA ✓
+| Agente        | Status         | Total lancamentos | Total inconsistencias |
+|---------------|----------------|-------------------|-----------------------|
+| ReporterAgent | requer_revisao | 9                 | 2                     |
 ```
 
 ### Regras
 
 - Nunca executar tool call silenciosamente — sempre anunciar antes com contexto
-- Sempre reportar resultado detalhado depois (nao so APROVADO/FALHOU)
+- Sempre imprimir tabela de resultado depois de cada fase (nao so APROVADO/FALHOU)
 - Se falhou: informar erro exato antes de corrigir
 - Se bloqueio real: parar e explicar o que precisa de intervencao humana
-- Output do Bash fica colapsado na UI — o chat e a unica visibilidade completa para o usuario
+- Output do Bash fica colapsado na UI — tabela no chat e a unica visibilidade completa para o usuario
 
 ### Atualizacao de progress/ ao final de cada fase
 

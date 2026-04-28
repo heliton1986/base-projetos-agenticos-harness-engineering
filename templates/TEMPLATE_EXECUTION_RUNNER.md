@@ -159,7 +159,7 @@ def fase_1_bootstrap(runner: RunnerNarrativo) -> None:
             pass
 
 
-def fase_2_primeira_capacidade(runner: RunnerNarrativo) -> None:
+def fase_2_primeira_capacidade(runner: RunnerNarrativo, session) -> None:
     with runner.fase(2, "[NOME_DA_CAPACIDADE]"):
         log("  [OrchestratorAgent]", "iniciando fluxo...")
 
@@ -167,6 +167,7 @@ def fase_2_primeira_capacidade(runner: RunnerNarrativo) -> None:
             # executar primeira capacidade incremental
             # acionar agentes
             # validar contrato de saida
+            # registrar em audit_log via: registrar(session, run_id, agente, acao, status, detalhe)
             pass
 
         log("  [ReporterAgent]", "gerando relatorio...")
@@ -180,8 +181,14 @@ def main() -> None:
 
     try:
         fase_1_bootstrap(runner)
-        fase_2_primeira_capacidade(runner)
-        # adicionar fases conforme o projeto evolui
+
+        # Sessao unica para todas as fases com DB — garante audit_log por run
+        # Regra: run_flow.py abre a sessao e passa para cada fase.
+        # Nunca delegar abertura de sessao ao OrchestratorAgent ou agentes individuais.
+        from src.db.connection import get_session
+        with get_session() as session:
+            fase_2_primeira_capacidade(runner, session)
+            # adicionar fases conforme o projeto evolui
     except BlockingError as e:
         print(f"\n  BLOQUEIO REAL: {e}", flush=True)
         print("  Intervencao humana necessaria antes de continuar.", flush=True)
