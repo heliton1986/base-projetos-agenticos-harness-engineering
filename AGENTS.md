@@ -57,6 +57,30 @@ Nao pedir confirmacao a cada passo intermediario. Pedir apenas em bloqueio real.
 
 **Bloqueio real:** ambiguidade de regra de negocio, credencial ausente, risco de escrita indevida, conflito de escopo.
 
+## Protocolo narrativo no chat (obrigatorio)
+
+Quando executar qualquer fase, gate ou agente — anunciar em texto no chat antes e depois de cada tool call.
+
+Formato obrigatorio:
+
+```
+[Fase X — Nome]        iniciando...
+[Gate X — Nome]        verificando...
+*(executa tool)*
+[Gate X — Nome]        APROVADO ✓
+[AgenteX]              descricao do que fez
+[Fase X — Nome]        CONCLUIDA ✓
+```
+
+Regras:
+- Nunca executar tool call silenciosamente — sempre anunciar antes
+- Sempre confirmar resultado depois (APROVADO / FALHOU / BLOQUEADO)
+- Se falhou: informar o erro antes de corrigir
+- Se bloqueio real: parar e explicar o que precisa de intervencao humana
+
+Este protocolo garante visibilidade identica no chat e no terminal.
+Ref: `templates/TEMPLATE_EXECUTION_RUNNER.md`
+
 ## Criacao de projeto novo — sequencia obrigatoria
 
 ```

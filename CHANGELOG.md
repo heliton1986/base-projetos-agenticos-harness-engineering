@@ -5,6 +5,15 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 ---
 
+## [1.3.0] - 2026-04-28
+
+### Adicionado
+
+- `templates/TEMPLATE_EXECUTION_RUNNER.md` — padrão de runner narrativo com saída em tempo real por fase e gate
+- `## Protocolo narrativo no chat` em `AGENTS.md` — LLM anuncia cada fase/gate/agente antes e depois de tool calls
+
+---
+
 ## [1.2.0] - 2026-04-28
 
 ### Adicionado
