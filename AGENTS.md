@@ -101,6 +101,8 @@ Ref: `templates/TEMPLATE_EXECUTION_RUNNER.md`
 
 Nunca pular etapas. Nunca gerar artefato sem o template correspondente.
 
+**Velocidade de execucao:** executar cada fase completa sem pedir confirmacao a cada arquivo. A interacao com o humano acontece entre fases, nao entre arquivos. Perguntar apenas em bloqueio real.
+
 ## Regras que nunca podem ser violadas
 
 1. **Nunca gerar artefato sem template** — README, AGENTS.md, spec, contratos: sempre a partir do template
