@@ -199,6 +199,30 @@ Usar apenas quando o projeto requer a capacidade. Nao adicionar por padrao.
 
 Regra: adicionar capacidade apenas quando requisito esta definido — nao por antecipacao.
 
+### Oferta de proximo passo ao final de cada entrega (obrigatorio)
+
+Ao concluir qualquer fase, gate ou entrega verificavel, oferecer proximo passo concreto antes de encerrar.
+
+Regras:
+- Nunca oferecer opcao generica ("quer continuar?") — sempre nomear o que sera feito e onde rodara
+- Oferecer no maximo 3 opcoes relevantes para o estado atual do projeto
+- Se houver componente subivel (FastAPI, Streamlit, Chainlit), oferecer explicitamente com porta e rota
+
+Formato:
+```
+Proximo passo:
+A) [acao concreta] — [o que o usuario vera/testara]
+B) [acao concreta] — [o que o usuario vera/testara]
+C) Encerrar aqui
+
+Qual escolhe?
+```
+
+Exemplos validos:
+- "Quer subir o FastAPI no localhost:8000 para testar o endpoint POST /processar com um CSV real?"
+- "Quer abrir o Streamlit no localhost:8501 para visualizar as inconsistencias detectadas?"
+- "Proximo: implementar Fase 4 (RelatorioAgent) ou encerrar aqui?"
+
 ### Atualizacao de progress/ ao final de cada fase
 
 Faz parte da fase — nao e passo separado, nao requer confirmacao.
