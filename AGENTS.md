@@ -172,6 +172,20 @@ Por que antes do framework: refatoracao de agentes pode quebrar regras de negoci
 
 Ref: `templates/TEMPLATE_CI.md`
 
+### Templates opcionais por capacidade
+
+Usar apenas quando o projeto requer a capacidade. Nao adicionar por padrao.
+
+| Capacidade | Quando usar | Template |
+|-----------|-------------|----------|
+| API REST (FastAPI) | expor processamento via HTTP, upload de arquivos, integracao com outros sistemas | `templates/TEMPLATE_FASTAPI.md` |
+| UI Web (Streamlit) | interface visual para usuario nao-tecnico, upload + visualizacao + download | `templates/TEMPLATE_STREAMLIT.md` |
+| Chat UI (Chainlit) | interface conversacional para usuario final, fluxo interativo com agente | futuro |
+| Observabilidade LLM (LangFuse) | rastrear chamadas LLM em producao, custo, latencia, qualidade | futuro |
+| Framework de agentes (CrewAI) | multiplos agentes paralelos, handoff de tarefas, fluxo dinamico | futuro |
+
+Regra: adicionar capacidade apenas quando requisito esta definido — nao por antecipacao.
+
 ### Atualizacao de progress/ ao final de cada fase
 
 Faz parte da fase — nao e passo separado, nao requer confirmacao.
