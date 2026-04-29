@@ -157,6 +157,21 @@ Regras:
 
 Ref: `templates/TEMPLATE_TESTS.md`
 
+### CI + Coverage (obrigatorio antes de migrar para framework)
+
+Todo projeto derivado deve ter CI configurado antes de qualquer migração para framework (CrewAI, LangChain, etc).
+
+Regras:
+- `.github/workflows/tests.yml` — roda `pytest` a cada push/PR, bloqueia merge se falhar
+- `.coveragerc` — excluir `src/db/` (requer DB real, nao testavel offline)
+- Coverage minimo: **80%** sobre `src/` excluindo `src/db/`
+- Adicionar `pytest>=8.0.0` e `pytest-cov>=5.0.0` ao `requirements.txt`
+- `.coverage`, `htmlcov/`, `.pytest_cache/` no `.gitignore`
+
+Por que antes do framework: refatoracao de agentes pode quebrar regras de negocio fixas silenciosamente. CI detecta regressao no push.
+
+Ref: `templates/TEMPLATE_CI.md`
+
 ### Atualizacao de progress/ ao final de cada fase
 
 Faz parte da fase — nao e passo separado, nao requer confirmacao.
