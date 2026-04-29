@@ -172,6 +172,19 @@ Por que antes do framework: refatoracao de agentes pode quebrar regras de negoci
 
 Ref: `templates/TEMPLATE_CI.md`
 
+### Parser de output LLM (obrigatorio quando agente parseia texto do LLM)
+
+Quando agente parseia output textual de LLM com campo tipado, usar padrao robusto:
+
+- Prompt pede formato `ID|tipo|descricao_curta` — sem markdown, sem JSON
+- Parser usa regex com UUID/ID como ancora: `re.compile(r"(uuid-pattern)\|([^|]+)\|(.+)")`
+- Usar `search()`, nao `match()` — captura mesmo com prefixo markdown na linha
+- Strip markdown residual no campo descricao: `.strip("*\`")`
+- Normalizar tipo antes de validar: `re.sub(r"[^a-zA-Z0-9_]", "_", tipo).strip("_")`
+- Fallback obrigatorio: tipo invalido → tipo generico (ex: `inconsistencia_semantica`). Nunca descartar linha nem propagar tipo invalido.
+
+Ref: `06_PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md` — secao "Parser de Output LLM"
+
 ### Templates opcionais por capacidade
 
 Usar apenas quando o projeto requer a capacidade. Nao adicionar por padrao.

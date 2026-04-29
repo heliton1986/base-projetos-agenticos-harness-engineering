@@ -256,6 +256,73 @@ Em uma frase:
 
 `Builder constrói, Validator verifica, Orchestrator aprova; o task contract impede que o sistema avance no escuro.`
 
+## Parser de Output LLM — padrao robusto
+
+### Problema
+
+LLMs retornam texto livre. Mesmo com instrucao de formato (`ID|tipo|descricao`), o modelo pode envolver os valores em markdown (`**UUID**`, `` `tipo` ``) ou adicionar texto antes/apos a linha. Parser baseado em `split("|")` ou linha exata quebra nesses casos.
+
+### Solucao validada (FinanceOps v2)
+
+**Contrato de prompt:** pedir formato `UUID|tipo|descricao_curta` — sem markdown, sem json, sem wrapper.
+
+```python
+prompt = (
+    "...contexto...\n"
+    "Responda apenas se tiver confianca alta. Formato: ID|tipo|descricao_curta\n\n"
+    f"{linhas_dos_lancamentos}"
+)
+```
+
+**Parser com regex UUID como ancora:**
+
+```python
+import re
+
+uuid_pattern = re.compile(
+    r"([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})\|([^|]+)\|(.+)",
+    re.IGNORECASE,
+)
+
+for linha in texto.strip().splitlines():
+    match = uuid_pattern.search(linha)  # search, nao match — ignora prefixo na linha
+    if match:
+        lid = match.group(1)
+        tipo = match.group(2).strip()
+        descricao = match.group(3).strip().strip("*`")  # remove markdown residual
+```
+
+Usar `search()` em vez de `match()` — captura UUID mesmo se houver texto antes na linha (ex: `- **uuid|tipo|desc**`).
+
+**Contrato Literal com fallback:**
+
+```python
+TIPOS_VALIDOS = {
+    "duplicata_suspeita", "campo_ausente", "formato_invalido",
+    "valor_alto_suspeito", "valor_irrisorio_suspeito",
+    "descricao_suspeita", "centro_custo_desconhecido", "inconsistencia_semantica",
+}
+
+tipo_normalizado = re.sub(r"[^a-zA-Z0-9_]", "_", tipo).strip("_")
+tipo_limpo = tipo_normalizado if tipo_normalizado in TIPOS_VALIDOS else "inconsistencia_semantica"
+```
+
+Regra: normalizar caracteres estranhos primeiro (`re.sub`), depois checar contra `TIPOS_VALIDOS`. Tipo desconhecido → tipo generico (`inconsistencia_semantica`). Nunca rejeitar linha por tipo invalido — perda silenciosa de dados.
+
+### Quando aplicar
+
+- Qualquer agente que parseia output textual de LLM com campo tipado
+- Output tem formato `chave|tipo|descricao` ou similar
+- Tipo deve mapear para `Literal` Python ou enum do contrato Pydantic
+
+### Regras
+
+1. Ancora no campo mais estruturado (UUID, ID numerico) — nao no inicio da linha
+2. `search()` > `match()` — robusto a prefixos markdown
+3. Strip markdown (`` ` ``, `*`) no campo descricao
+4. Normalizar tipo antes de validar contra set
+5. Fallback obrigatorio — nunca deixar tipo invalido propagar nem descartar linha
+
 ## Referencias
 
 Os padroes descritos aqui sao agnósticos de modelo e provedor. As fontes abaixo os nomearam e documentaram na literatura de sistemas agenticos.
