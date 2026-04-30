@@ -1,5 +1,18 @@
 # Protocolo de Execucao — Quick Reference
 
+## Padrao ReAct (base do loop)
+
+Loop fundamentado em **ReAct** (Reasoning + Acting — Yao et al. 2022):
+
+| Fase | O que fazer |
+|---|---|
+| **Think** | Raciocinar antes de agir — entender estado atual, identificar proximo passo |
+| **Act** | Executar a acao escolhida (script, correcao, tool call) |
+| **Observe** | Integrar resultado — o que mudou, o que falhou, o que passou |
+| **Iterate** | Decidir: aprovado / corrigir e repetir / escalar |
+
+Cada decisao deve ser registrada no audit_log para auditabilidade.
+
 ## Loop obrigatorio
 
 ```

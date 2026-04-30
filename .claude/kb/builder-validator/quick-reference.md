@@ -1,5 +1,19 @@
 # Builder / Validator — Quick Reference
 
+## Contrato acordado antes da execucao
+
+Builder e Validator concordam no contrato ANTES de qualquer execucao.
+
+Sequencia obrigatoria:
+1. Orchestrator define task contract
+2. Builder le e confirma o que vai entregar
+3. Validator le e confirma o que vai checar
+4. Builder executa
+5. Validator verifica item a item
+6. Orchestrator decide aprovacao
+
+Sem acordo previo: Validator inclui requisitos novos durante verificacao → Builder implementa fora do escopo → loop infinito.
+
 ## Ciclo por capacidade
 
 ```
