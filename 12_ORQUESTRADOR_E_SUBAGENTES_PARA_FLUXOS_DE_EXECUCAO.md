@@ -162,6 +162,73 @@ Porque:
 - resume e comunica
 - normalmente nao precisa da maior capacidade de raciocinio do sistema
 
+## 6 Padroes de Orquestracao
+
+Sistemas agenticos reais nao sao apenas sequencias lineares. Escolha o padrao pelo tipo de problema.
+
+### 1. Sequential
+
+Agente A → Agente B → Agente C em ordem fixa.
+
+Quando usar: passos com dependencia estrita de ordem, output de um e input do proximo.
+
+Exemplo: ingestao → deteccao → relatorio (FinanceOps fase manual).
+
+Limitacao: nenhuma decisao de roteamento — mais pipeline do que agente.
+
+### 2. Parallel
+
+Multiplos agentes executam simultaneamente, resultados consolidados ao final (fan-out / fan-in).
+
+Quando usar: tarefas independentes que podem rodar ao mesmo tempo sem dependencia entre si.
+
+Exemplo: agente SQL e agente semantico consultando stores diferentes ao mesmo tempo, orquestrador consolida.
+
+### 3. Hierarchical
+
+Agente manager delega para agentes especialistas. Manager decide quem executa o que.
+
+Quando usar: problema complexo com subdivisao clara de domínios; manager precisa raciocinar sobre delegacao.
+
+Exemplo: ShopAgent — manager recebe pedido, delega para agente de busca, agente de preco, agente de estoque.
+
+### 4. Reactive
+
+Agentes respondem a eventos em tempo real, nao a pedidos explícitos.
+
+Quando usar: monitoramento continuo, alertas, triggers baseados em condicoes externas.
+
+Exemplo: agente que observa pipeline de dados e dispara acao quando anomalia e detectada.
+
+### 5. Adaptive
+
+Agentes aprendem com feedback e ajustam comportamento ao longo do tempo.
+
+Quando usar: sistemas com ciclo de melhoria continua, onde runs anteriores informam runs futuros.
+
+Exemplo: agente que ajusta threshold de deteccao baseado em taxa de falso positivo historica.
+
+### 6. Hybrid
+
+Combinacao de padroes por fase ou contexto.
+
+Quando usar: sistemas de producao complexos onde nenhum padrao unico serve para todas as etapas.
+
+Exemplo: hierarchical para decisao de rota + parallel para coleta de dados + sequential para geracao de relatorio.
+
+### Guia rapido de selecao
+
+| Cenario | Padrao |
+|---|---|
+| Passos com dependencia estrita | Sequential |
+| Tarefas independentes simultaneas | Parallel |
+| Problema com subdivisao de domínios | Hierarchical |
+| Monitoramento e alertas | Reactive |
+| Melhoria continua com historico | Adaptive |
+| Sistema completo de producao | Hybrid |
+
+Fonte: Semana AI Data Engineer 2026, Dia 4 — Multi-Agent Orchestration Patterns
+
 ## Quando usar agente unico
 
 Use agente unico quando:

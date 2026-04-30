@@ -40,6 +40,23 @@ Quando o usuario pedir algo como:
 
 A LLM deve interpretar isso como um pedido de execucao agentica e nao apenas como uma sugestao de comando.
 
+## Loop ReAct
+
+Este protocolo implementa o padrao **ReAct** (Reasoning + Acting), fundamento academico de agentes que intercalam raciocinio e acao.
+
+As quatro fases do loop:
+
+1. **Think** — raciocinar antes de agir; entender o estado atual, identificar o proximo passo
+2. **Act** — executar a acao escolhida (script, tool call, correcao)
+3. **Observe** — integrar o resultado; o que mudou, o que falhou, o que passou
+4. **Iterate** — decidir: aprovado, corrigir e repetir, ou escalar
+
+Cada decisao deve ser registrada (audit_log) para auditabilidade.
+
+O loop termina quando: gate aprovado, ou bloqueio real que exige decisao humana.
+
+Fonte: Yao et al. — ReAct: Synergizing Reasoning and Acting in Language Models (2022). arxiv.org/abs/2210.03629
+
 ## Loop esperado
 
 O fluxo padrao deve ser:

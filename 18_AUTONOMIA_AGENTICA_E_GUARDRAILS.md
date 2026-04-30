@@ -190,6 +190,40 @@ class OrchestratorAgent:
 
 ---
 
+## Nao-determinismo vs Resultado Determinístico
+
+Uma critica comum a sistemas agenticos: "LLMs sao nao-determinísticas — o mesmo prompt gera tokens diferentes."
+
+O reframe correto (Semana AI, Dia 3):
+
+`Geracao nao-determinística × verificacao determinística = resultado determinístico`
+
+Como funciona na pratica:
+
+- O agente gera output com variacao natural
+- Gates verificam o output com criterio binario (passa / nao passa)
+- Se nao passa, o agente itera (2-3 ciclos convergem para o mesmo comportamento observavel)
+- A variancia do codigo e irrelevante — a variancia do resultado e zero
+
+Consequencia direta:
+
+`Nao controle como o codigo e escrito. Controle se ele passa nos gates.`
+
+Isso e o que `ValidatorAgent` + CI + Pydantic fazem no harness. Nao eliminam nao-determinismo — tornam o resultado final determinístico apesar dele.
+
+### O que controlar
+
+| Nao controlar | Controlar |
+|---|---|
+| Como a LLM formula o codigo | Se o teste passa |
+| Qual sequencia de tokens ela escolhe | Se o contrato Pydantic valida |
+| Se ela usa tabs ou spaces | Se o CI aprova |
+| Se ela refatora ou nao | Se o gate fecha |
+
+Fonte: Semana AI Data Engineer 2026, Dia 3 — Software 3.0: "Control through specification"
+
+---
+
 ## Relacao com outros documentos
 
 - `02_DOE_OPERACIONAL_PARA_HARNESS.md` — camada O (Orquestracao) e onde a decisao real do agente vive
