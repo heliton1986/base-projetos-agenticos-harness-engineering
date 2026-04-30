@@ -53,7 +53,7 @@ Nao controle como a LLM gera — controle se o resultado passa nos gates.
 | Qual sequencia de tokens | Se o contrato Pydantic valida |
 | Estilo de implementacao | Se o CI aprova |
 
-## 6 Padroes de Orquestracao
+## 7 Padroes de Orquestracao
 
 | Padrao | Quando usar | Exemplo |
 |---|---|---|
@@ -63,6 +63,9 @@ Nao controle como a LLM gera — controle se o resultado passa nos gates.
 | **Reactive** | Resposta a eventos em tempo real | Monitoramento com alertas |
 | **Adaptive** | Aprende com historico de runs | Ajuste de threshold por feedback |
 | **Hybrid** | Combinacao de padroes por fase | Producao complexa |
+| **Consensus** ⚠️ | Alto risco + gate deterministico insuficiente | 3 agentes votam em classificacao critica |
+
+Consensus — nao usar por padrao: N× custo, falsa seguranca se prompt identico. Substituir por ValidatorAgent + pytest/Pydantic na maioria dos casos.
 
 ## Fase manual vs framework
 

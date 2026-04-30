@@ -216,6 +216,21 @@ Quando usar: sistemas de producao complexos onde nenhum padrao unico serve para 
 
 Exemplo: hierarchical para decisao de rota + parallel para coleta de dados + sequential para geracao de relatorio.
 
+### 7. Consensus (uso condicional)
+
+Multiplos agentes independentes avaliam o mesmo problema e votam — a resposta com maior concordancia vence.
+
+Quando usar: classificacao de alto risco (medico, legal, financeiro) onde single agent tem confianca insuficiente; reducao de alucinacao em outputs criticos; tarefas ambiguas onde concordancia entre agentes e um gate de qualidade.
+
+Exemplo: 3 agentes avaliam se uma transacao e fraude — maioria vence. Cada agente usa prompt diferente para evitar correlacao de erro.
+
+**Atencao — nao usar por padrao:**
+- Custo: N × mais chamadas LLM
+- Falsa seguranca se prompt identico — 3 agentes erram igual
+- Substituivel por ValidatorAgent + gate determinístico (pytest/Pydantic) na maioria dos casos
+
+Use Consensus apenas quando gate determinístico nao for suficiente para o nivel de risco.
+
 ### Guia rapido de selecao
 
 | Cenario | Padrao |
@@ -226,8 +241,9 @@ Exemplo: hierarchical para decisao de rota + parallel para coleta de dados + seq
 | Monitoramento e alertas | Reactive |
 | Melhoria continua com historico | Adaptive |
 | Sistema completo de producao | Hybrid |
+| Alto risco + gate determinístico insuficiente | Consensus |
 
-Fonte: Semana AI Data Engineer 2026, Dia 4 — Multi-Agent Orchestration Patterns
+Fonte: Semana AI Data Engineer 2026, Dias 3-4 — Orchestration Patterns
 
 ## Quando usar agente unico
 
