@@ -224,6 +224,47 @@ Fonte: Semana AI Data Engineer 2026, Dia 3 — Software 3.0: "Control through sp
 
 ---
 
+## Docstring como Spec do Agente
+
+Quando o agente recebe uma lista de tools, ele le a docstring de cada uma para decidir quando usar.
+
+`Docstring ruim → decisao ruim.`
+
+Docstring nao e comentario para humano — e a especificacao que o agente consulta em runtime.
+
+### Como escrever
+
+```python
+# Ruim — descreve implementacao, nao criterio de uso
+@tool
+def supabase_execute_sql(query: str) -> str:
+    """Executa query SQL no banco de dados."""
+
+# Correto — descreve quando usar
+@tool
+def supabase_execute_sql(query: str) -> str:
+    """Use para perguntas sobre numeros, totais, faturamento, pedidos e ticket medio.
+    Exemplos: 'qual o faturamento do mes?', 'quantos pedidos foram feitos?'"""
+```
+
+```python
+# Correto — criterio semantico
+@tool
+def qdrant_semantic_search(query: str) -> str:
+    """Use para perguntas sobre opiniao, sentimento, reclamacoes e contexto qualitativo.
+    Exemplos: 'o que os clientes reclamam?', 'qual o sentimento sobre o produto X?'"""
+```
+
+### Regra
+
+Escreva a docstring respondendo: "Em que situacao o agente deve escolher esta tool?"
+
+Se a docstring nao responde isso, o agente vai escolher errado.
+
+Fonte: Semana AI Data Engineer 2026, Dia 3 — ShopAgent tools.py
+
+---
+
 ## Relacao com outros documentos
 
 - `02_DOE_OPERACIONAL_PARA_HARNESS.md` — camada O (Orquestracao) e onde a decisao real do agente vive

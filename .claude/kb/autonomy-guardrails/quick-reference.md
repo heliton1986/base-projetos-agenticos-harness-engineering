@@ -74,6 +74,20 @@ Consensus — nao usar por padrao: N× custo, falsa seguranca se prompt identico
 | Manual (pre-framework) | Pipeline com LLM — constraint OK | Validar contratos e outputs |
 | Com framework (CrewAI) | Orquestrador com decisao real | Autonomia de fluxo baseada em output |
 
+## Docstring como Spec do Agente
+
+`Docstring ruim → decisao ruim.` O agente le a docstring para decidir quando usar cada tool.
+
+Escreva respondendo: "Em que situacao o agente deve escolher esta tool?"
+
+```python
+# Ruim — descreve implementacao
+"""Executa query SQL no banco."""
+
+# Correto — criterio de uso
+"""Use para perguntas sobre numeros, totais, faturamento, pedidos e ticket medio."""
+```
+
 ## Checklist antes de chamar de agente
 
 - [ ] OrchestratorAgent avalia output antes de chamar proximo agente
