@@ -40,6 +40,19 @@ Quando o usuario pedir algo como:
 
 A LLM deve interpretar isso como um pedido de execucao agentica e nao apenas como uma sugestao de comando.
 
+## Loop do Agente: Perception → Reasoning → Action → Memory
+
+Um agente real nao executa um script — percebe, raciocina, age e lembra, em loop. Cada iteracao refina a resposta com base no que foi armazenado.
+
+| Fase | O que acontece |
+|------|---------------|
+| **Perception** | Recebe input e interpreta intencao — qual pergunta, qual contexto, qual objetivo |
+| **Reasoning** | Analisa e decide o proximo passo — qual tool, qual fonte, qual estrategia |
+| **Action** | Executa a decisao — SQL (exato/estruturado) ou busca semantica (Qdrant/vetor) |
+| **Memory** | Armazena contexto para proximas decisoes — o que foi aprendido nesta iteracao alimenta a proxima |
+
+Memory ativa e o que diferencia agente de script: o resultado de cada iteracao alimenta a proxima decisao.
+
 ## Loop ReAct
 
 Este protocolo implementa o padrao **ReAct** (Reasoning + Acting), fundamento academico de agentes que intercalam raciocinio e acao.
@@ -56,6 +69,15 @@ Cada decisao deve ser registrada (audit_log) para auditabilidade.
 O loop termina quando: gate aprovado, ou bloqueio real que exige decisao humana.
 
 Fonte: Yao et al. — ReAct: Synergizing Reasoning and Acting in Language Models (2022). arxiv.org/abs/2210.03629
+
+Mapeamento entre os dois loops:
+
+| Loop do Agente | ReAct |
+|----------------|-------|
+| Perception | Observe (entrada inicial) |
+| Reasoning | Think |
+| Action | Act |
+| Memory | Observe + armazenamento persistente |
 
 ## Loop esperado
 

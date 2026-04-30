@@ -1,5 +1,18 @@
 # Protocolo de Execucao — Quick Reference
 
+## Loop do Agente: Perception → Reasoning → Action → Memory
+
+| Fase | O que acontece |
+|------|---------------|
+| **Perception** | Recebe input, interpreta intencao |
+| **Reasoning** | Decide proximo passo — qual tool, qual fonte |
+| **Action** | Executa — SQL (exato) ou Qdrant (semantico) |
+| **Memory** | Armazena contexto; alimenta proxima iteracao |
+
+Memory ativa diferencia agente de script: resultado de cada iteracao entra na proxima decisao.
+
+Mapeamento com ReAct: Perception≈Observe(entrada), Reasoning≈Think, Action≈Act, Memory≈Observe+armazenamento.
+
 ## Padrao ReAct (base do loop)
 
 Loop fundamentado em **ReAct** (Reasoning + Acting — Yao et al. 2022):
