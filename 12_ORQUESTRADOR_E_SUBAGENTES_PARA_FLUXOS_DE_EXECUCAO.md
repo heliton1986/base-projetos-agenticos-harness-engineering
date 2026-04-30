@@ -245,6 +245,114 @@ Use Consensus apenas quando gate determinístico nao for suficiente para o nivel
 
 Fonte: Semana AI Data Engineer 2026, Dias 3-4 — Orchestration Patterns
 
+## Processos Separados vs Subagentes no Mesmo Processo
+
+Esta e uma das distincoes mais importantes do harness — e a que mais projetos ignoram.
+
+### Subagente no mesmo processo
+
+O orquestrador chama um subagente como funcao ou tool call dentro do mesmo contexto.
+
+```python
+# mesmo processo — contexto compartilhado
+resultado = builder_agent.executar(tarefa)
+validacao = validator_agent.validar(resultado)
+```
+
+O validator tem acesso ao contexto do builder — pode ser "contaminado" pelo raciocinio anterior.
+
+### Agentes em processos separados
+
+Orquestrador inicia cada agente em processo independente, com contexto proprio.
+
+```
+Orchestrator (Processo 1)
+  ↓ lanca
+Builder    (Processo 2 — contexto isolado — missao: implementar)
+  ↓ retorna artefato
+Orchestrator
+  ↓ lanca
+Validator  (Processo 3 — contexto isolado — missao: validar)
+  ↓ retorna veredicto
+Orchestrator decide: aprovar ou corrigir
+```
+
+**Por que processos separados importam:**
+- Builder com missao de implementar vai implementar — mesmo que precise deletar codigo
+- Validator com missao de validar vai validar — sem ser influenciado por como o builder raciocinou
+- Sem contexto compartilhado, o validator nao pode ser "convencido" pelo builder
+- Claude Code (vazamento de codigo, 2025) ja se instrumenta para esse padrao — Builder e Validator em janelas separadas
+
+**Quando usar:**
+- Fluxos criticos onde validacao independente e obrigatoria
+- Sistemas com loop de autocorrecao que precisam de veredicto limpo
+- Qualquer contexto onde "agente julga o proprio trabalho" e um risco inaceitavel
+
+**Quando subagente no mesmo processo e suficiente:**
+- Tarefas de baixo risco onde validacao e estrutural (Pydantic)
+- Fase manual do harness — pipeline sequencial sem autonomia de fluxo
+- Prototipo ou fase inicial onde custo de processos separados nao se justifica
+
+Fonte: VIDEO1_HARNESS.md — "Em outro processo, tem o processo orquestrador que inicia um para implementar e inicia outro para validar. Nao e um sub agent."
+
+---
+
+## Loop de Autocorrecao Orquestrado
+
+O loop de autocorrecao e o coracao de um sistema agentico confiavel. Sem ele, o fluxo para no primeiro erro.
+
+### Estrutura do loop
+
+```
+1. Orchestrator define tarefa + criterios de pronto
+2. Builder executa
+3. Validator verifica contra criterios
+4. SE passou → Orchestrator aprova e avanca
+5. SE falhou → Orchestrator aciona FixAgent com erro especifico
+6. FixAgent corrige escopo limitado
+7. Voltar para passo 2 (reexecutar)
+8. Limite de ciclos (ex: 3) → escalar para humano se nao convergir
+```
+
+### Regras do loop
+
+- **Validator nao corrige** — apenas veredicto binario (passou / nao passou) + motivo
+- **FixAgent nao valida** — apenas corrige o erro apontado, sem expandir escopo
+- **Orchestrator decide** — retry, correcao ou escalacao para humano
+- **Limite de ciclos obrigatorio** — loop infinito e falha silenciosa
+
+### Implementacao minima
+
+```python
+MAX_CICLOS = 3
+
+for ciclo in range(MAX_CICLOS):
+    resultado = builder.executar(tarefa)
+    validacao = validator.verificar(resultado, criterios)
+    if validacao.passou:
+        return resultado
+    if ciclo < MAX_CICLOS - 1:
+        fix_agent.corrigir(validacao.erro, escopo=tarefa.escopo)
+    else:
+        raise RuntimeError(f"Nao convergiu em {MAX_CICLOS} ciclos: {validacao.erro}")
+```
+
+### Relacao com sensores externos
+
+O Validator nao deve julgar por texto — deve rodar sensores:
+
+```
+pytest → passou/falhou (binario)
+Pydantic → valido/invalido (binario)
+linter → 0 erros / N erros (numerico)
+```
+
+"Parece bom" nao e criterio. Sensor externo retorna 0 ou 1 — isso e o gate.
+
+Fonte: VIDEO1_HARNESS.md — "O que forca nao e a instrucao. O que forca sao os sensores — coisas externas, linters, test runners — porque o agente nao deve ser quem julga."
+
+---
+
 ## Quando usar agente unico
 
 Use agente unico quando:

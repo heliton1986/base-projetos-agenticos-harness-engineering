@@ -16,6 +16,32 @@ Esses conceitos fundamentam a decisao de quando um orquestrador e de verdade um 
 
 ---
 
+## Taxonomia: Tool vs Agent vs Workflow
+
+Tres niveis de autonomia — escolher pelo problema, nao pela tecnologia.
+
+| | Tool | Agent | Workflow |
+|---|---|---|---|
+| **Decisao** | Nenhuma — eu chamo, ele executa | Autonoma — ele decide qual tool usar | Orquestrada — eu defino, agentes executam |
+| **Analogia** | Chave de fenda | Robo com ferramentas | Fabrica de robos |
+| **Exemplo** | `execute_sql(query)` | ShopAgent decide SQL vs semantico por intencao | CrewAI: Analyst → Researcher → Reporter |
+| **Caracteristica** | Deterministico / Input→Output | Autonomo — padrao de hoje | Orquestrado — multi-agent |
+| **Quando usar** | Funcao auxiliar, sem ambiguidade de roteamento | Pergunta aberta com multiplas fontes possiveis | Fluxos com papeis distintos, paralelismo ou handoff |
+
+### Regra de escolha
+
+```
+Um input com resposta deterministica → Tool
+Um input com roteamento ambiguo       → Agent (decide qual tool)
+Multiplos papeis com handoff          → Workflow (multi-agent)
+```
+
+O D3 da Semana AI constroi o Agent. O D4 constroi o Workflow. A fase manual desta base constroi as Tools com contratos validados — base para os dois.
+
+Fonte: Semana AI Data Engineer 2026, Dia 3 — slides "Tool vs Agent vs Workflow"
+
+---
+
 ## Guardrail vs Constraint
 
 ### Constraint
