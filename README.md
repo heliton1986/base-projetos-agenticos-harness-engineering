@@ -28,6 +28,7 @@ A pasta `.claude/kb/` contem padroes operacionais prontos para uso imediato — 
 | `execution-protocol/` | Loop obrigatorio de execucao com tabela de decisao |
 | `model-routing/` | Criterios e tabela de roteamento de modelos por agente |
 | `agent-contracts/` | Template de contrato, audit_log e checklist por agente |
+| `autonomy-guardrails/` | Guardrail vs constraint, Tool/Agent/Workflow, docstring-as-spec, loop de autocorrecao |
 
 Cada dominio tem `index.md` (contexto) e `quick-reference.md` (padrao pronto para usar).
 
@@ -88,6 +89,14 @@ Define como registrar e exibir agente, modelo, provider, status, retries e valid
 
 Explica como usar fases executaveis para guiar a LLM por etapas de implementacao incrementais e verificaveis.
 
+### 17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md
+
+Fundamenta a progressao obrigatoria: dominio + contratos + testes + CI → framework. Explica por que pipeline manual nao e desperdicio — e a base que o framework pressupoe.
+
+### 18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md
+
+Formaliza: guardrail vs constraint, Tool vs Agent vs Workflow, loop de autocorrecao orquestrado, processos separados, docstring como spec do agente, feed forward vs feedback. Ler antes de qualquer decisao de arquitetura agentica.
+
 ## Documentos complementares
 
 ### 05_KB_MINIMA_PARA_PROJETOS_AGENTICOS.md
@@ -147,7 +156,7 @@ A pasta `tools/` contem ferramentas de suporte a gestao da base e dos projetos d
 ## Pasta templates/
 
 A pasta `templates/` guarda moldes obrigatorios para reduzir variabilidade na geracao dos artefatos.
-**Todos os 16 templates sao obrigatorios** — a diferenca e o momento de uso, nao a opcionalidade.
+**Todos os 21 templates sao obrigatorios** — a diferenca e o momento de uso e a capacidade requerida pelo projeto, nao a opcionalidade.
 Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero sem template.
 
 ### Antes de qualquer codigo (bootstrap)
@@ -178,6 +187,14 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - `TEMPLATE_TESTS.md` — padrao de testes offline (sem DB, sem LLM) por tipo de agente
 - `TEMPLATE_KB.md` — estrutura de kb/ por ferramenta com index e quick-reference
 
+### Por capacidade (usar quando o projeto requer)
+
+- `TEMPLATE_CI.md` — GitHub Actions com pytest + coverage minimo 80% (obrigatorio antes de migrar para framework)
+- `TEMPLATE_FASTAPI.md` — API REST com upload de arquivo, health check, error handling
+- `TEMPLATE_STREAMLIT.md` — UI web para upload, visualizacao e download de relatorios
+- `TEMPLATE_LANGGRAPH.md` — agente ReAct com decisao autonoma de tools, dual-store routing, docstring-as-spec
+- `TEMPLATE_CHAINLIT.md` — interface conversacional com streaming token a token e tool steps visiveis
+
 ## O que e nucleo e o que e opcional
 
 ### Nucleo
@@ -198,6 +215,8 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - `12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md` — handoff entre agentes e distribuicao de execucao
 - `13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md` — rastreabilidade de agente, modelo, status e retries
 - `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` — guia incremental de entrega por fases verificaveis
+- `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md` — progressao obrigatoria dominio+contratos+CI antes do framework
+- `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md` — guardrail vs constraint, Tool/Agent/Workflow, loop autocorrecao, docstring-as-spec
 
 ### Padroes obrigatorios de execucao (derivados de projetos reais)
 
@@ -205,6 +224,7 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - **Sessao DB unica no runner** — `run_flow.py` abre sessao e passa para todas as fases. Nunca delegar ao OrchestratorAgent
 - **audit_log por agente** — cada agente registra acao, status e detalhe ao final da sua execucao
 - **Testes offline obrigatorios** — sem DB, sem LLM, rodam em < 5s. Padrao em `TEMPLATE_TESTS.md`
+- **CI + coverage minimo 80%** — GitHub Actions rodando pytest a cada push, bloqueando merge se falhar. Obrigatorio antes de qualquer migracao para framework. Padrao em `TEMPLATE_CI.md`
 
 ### Complementar
 

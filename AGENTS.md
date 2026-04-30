@@ -193,9 +193,10 @@ Usar apenas quando o projeto requer a capacidade. Nao adicionar por padrao.
 |-----------|-------------|----------|
 | API REST (FastAPI) | expor processamento via HTTP, upload de arquivos, integracao com outros sistemas | `templates/TEMPLATE_FASTAPI.md` |
 | UI Web (Streamlit) | interface visual para usuario nao-tecnico, upload + visualizacao + download | `templates/TEMPLATE_STREAMLIT.md` |
-| Chat UI (Chainlit) | interface conversacional para usuario final, fluxo interativo com agente | futuro |
+| Chat UI (Chainlit) | interface conversacional para usuario final, streaming token a token, tool steps visiveis | `templates/TEMPLATE_CHAINLIT.md` |
+| Agente ReAct (LangGraph) | agente com decisao autonoma de ferramentas, dual-store routing, loop ReAct | `templates/TEMPLATE_LANGGRAPH.md` |
 | Observabilidade LLM (LangFuse) | rastrear chamadas LLM em producao, custo, latencia, qualidade | futuro |
-| Framework de agentes (CrewAI) | multiplos agentes paralelos, handoff de tarefas, fluxo dinamico | futuro |
+| Framework multi-agent (CrewAI) | multiplos agentes com papeis distintos, handoff sequencial/paralelo | futuro |
 
 Regra: adicionar capacidade apenas quando requisito esta definido — nao por antecipacao.
 
