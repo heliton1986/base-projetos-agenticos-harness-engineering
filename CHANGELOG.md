@@ -5,6 +5,20 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 ---
 
+## [1.7.0] - 2026-04-30
+
+### Adicionado
+
+- `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md` — distinção guardrail vs constraint, feed forward vs feedback, pipeline com LLM vs agente real, anti-padrão do orquestrador como script sequencial
+- `## Contrato acordado antes da execucao` em `06_PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md` — builder e validator concordam no contrato antes de executar; sequencia correta e por que previne loop infinito
+
+### Origem
+
+- VIDEO1_HARNESS.md — feed forward vs feedback (controle de sistemas)
+- Semana AI Data Engineer 2026, Dia 3 — guardrail vs constraint; agente decide fluxo
+
+---
+
 ## [1.3.0] - 2026-04-28
 
 ### Adicionado

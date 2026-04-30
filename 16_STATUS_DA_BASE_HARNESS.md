@@ -13,7 +13,7 @@ Registro sintetico do estado atual da base. Responde diretamente:
 - o que e obrigatorio vs complementar
 - o que ainda pode evoluir
 
-## Versao atual: v1.1
+## Versao atual: v1.7.0
 
 A base evoluiu de v1.0 para v1.1 com as seguintes adicoes:
 

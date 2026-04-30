@@ -83,6 +83,29 @@ Um contrato de tarefa deve responder pelo menos:
 - quais evidencias precisam existir
 - o que significa pronto
 
+## Contrato acordado antes da execucao
+
+Um erro comum: o Validator so descobre o que precisa testar depois que o Builder terminou.
+
+O padrao correto: **Builder e Validator concordam no contrato antes de qualquer execucao**.
+
+Sequencia correta:
+
+1. Orchestrator define o task contract
+2. Builder le o contrato e confirma o que vai entregar
+3. Validator le o contrato e confirma o que vai checar
+4. Builder executa
+5. Validator verifica item a item do contrato acordado
+6. Orchestrator decide aprovacao
+
+Por que isso importa:
+
+- Validator com lista acordada nao sugere coisas fora do escopo
+- Builder nao declara pronto baseado em criterios diferentes dos que serao verificados
+- Loop nao entra em ciclo infinito por desacordo sobre o que significa pronto
+
+Sem acordo previo, o Validator tende a incluir novos requisitos durante a verificacao, forçando o Builder a implementar coisas nao planejadas. O sistema entra em loop.
+
 ## Template sugerido
 
 ```text
