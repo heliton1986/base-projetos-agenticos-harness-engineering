@@ -120,6 +120,7 @@ Formato sugerido (adaptar ao dominio do projeto):
 
 - Nunca executar tool call silenciosamente — sempre anunciar antes com contexto
 - Sempre imprimir tabela de resultado depois de cada fase (nao so APROVADO/FALHOU)
+- **Coluna "Modelo" obrigatoria para todo agente que usa LLM** — nunca omitir. Agente deterministico: coluna omitida ou `— (deterministico)`. Agente LLM: modelo exato (ex: `claude-sonnet-4-6`). Isso vale para fases normais e para verificacao live de UI/API.
 - Se falhou: informar erro exato antes de corrigir
 - Se bloqueio real: parar e explicar o que precisa de intervencao humana
 - Output do Bash fica colapsado na UI — tabela no chat e a unica visibilidade completa para o usuario
