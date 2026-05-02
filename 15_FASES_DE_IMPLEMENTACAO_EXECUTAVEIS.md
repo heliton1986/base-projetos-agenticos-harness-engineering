@@ -118,22 +118,25 @@ Resumo:
 - `spec/` diz o que a fase significa
 - `implementation/` diz como percorrer a fase na pratica
 
-## Quando vale a pena usar
+## Quando e obrigatorio
 
-Faz sentido usar `implementation/` quando:
+`implementation/` e **obrigatorio** em projetos multi-agente (CrewAI, LangGraph com multiplos nos, qualquer sistema com handoff entre agentes).
 
-- o projeto tera varias fases com continuidade
-- a LLM precisa de mais disciplina operacional
-- ha interesse em transformar as fases em playbooks executaveis
-- o projeto se beneficia de checkpoints fortes entre etapas
+Razao: agentes autonomos nao tem contexto de sessao — eles executam o que encontram nos arquivos. Sem runbooks de fase explícitos, o agente improvisa ordem, pula validacoes e nao sabe onde parar. O `implementation/` e o harness da execucao entre fases.
 
-## Quando nao precisa
+Sinais de que e obrigatorio:
+- dois ou mais agentes com papeis distintos (Analyst, Researcher, Reporter)
+- handoff de contrato entre agentes
+- fases que so podem comecar apos a anterior estar aprovada
+- execucao autonoma sem engenheiro presente em cada passo
 
-Pode nao precisar quando:
+## Quando e opcional
 
-- o projeto e curto
-- a `spec/` ja esta suficientemente operacional
-- o numero de fases e pequeno demais para justificar camada adicional
+Apenas em projetos com agente unico e poucas fases onde:
+
+- o engenheiro esta presente em todas as fases
+- `spec/` + `progress/` + `execution/` cobrem os checkpoints
+- o numero de fases e pequeno (menos de 4)
 
 ## Conclusao
 
