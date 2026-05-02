@@ -3,8 +3,10 @@ Ponto de entrada principal. Executa classificacao de issue de exemplo.
 """
 from pydantic import ValidationError
 
-from .classifier_agent import ClassifierAgent, IssueClassification, IssueInput
-from .reporter_agent import IssueReport, ReporterAgent
+from ..contracts.issue_contract import IssueClassification, IssueInput, IssueReport
+from .classifier_agent import ClassifierAgent
+from .reporter_agent import ReporterAgent
+from .validator_agent import ValidatorAgent
 
 MAX_TENTATIVAS = 3
 
@@ -35,6 +37,7 @@ def validar_regras_negocio(classificacao: IssueClassification) -> list[str]:
 class OrchestratorAgent:
     def __init__(self) -> None:
         self._classifier = ClassifierAgent()
+        self._validator = ValidatorAgent()
         self._reporter = ReporterAgent()
 
     def processar(self, issue: IssueInput) -> IssueReport:
@@ -45,11 +48,23 @@ class OrchestratorAgent:
             tentativas += 1
             try:
                 classificacao = self._classifier.classificar(issue, contexto_erro)
+                vr_classificacao = self._validator.validar_instancia(classificacao)
+                if not vr_classificacao.valido:
+                    contexto_erro = "; ".join(vr_classificacao.erros)
+                    continue
+
                 erros = validar_regras_negocio(classificacao)
                 if erros:
                     contexto_erro = "; ".join(erros)
                     continue
-                return self._reporter.gerar_aprovado(issue, classificacao, tentativas)
+
+                relatorio = self._reporter.gerar_aprovado(issue, classificacao, tentativas)
+                vr_relatorio = self._validator.validar_instancia(relatorio)
+                if not vr_relatorio.valido:
+                    contexto_erro = "; ".join(vr_relatorio.erros)
+                    continue
+
+                return relatorio
             except (ValidationError, ValueError, Exception) as e:
                 contexto_erro = str(e)
 

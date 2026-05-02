@@ -1,38 +1,7 @@
 import json
 import os
-from typing import Optional
 
-import anthropic
-from pydantic import BaseModel, field_validator
-from typing import Literal
-
-
-class IssueInput(BaseModel):
-    texto: str
-    titulo: Optional[str] = None
-    autor: Optional[str] = None
-    repositorio: Optional[str] = None
-
-    @field_validator("texto")
-    @classmethod
-    def texto_nao_vazio(cls, v: str) -> str:
-        if len(v.strip()) < 10:
-            raise ValueError("texto deve ter ao menos 10 caracteres")
-        return v
-
-
-class IssueClassification(BaseModel):
-    severidade: Literal["critica", "alta", "media", "baixa"]
-    categoria: Literal["bug", "feature", "performance", "seguranca", "documentacao", "duvida"]
-    justificativa: str
-    confianca: Literal["alta", "media", "baixa"]
-
-    @field_validator("justificativa")
-    @classmethod
-    def justificativa_minima(cls, v: str) -> str:
-        if len(v.strip()) < 20:
-            raise ValueError("justificativa deve ter ao menos 20 caracteres")
-        return v
+from ..contracts.issue_contract import IssueClassification, IssueInput
 
 
 PROMPT_TEMPLATE = """\
@@ -69,8 +38,25 @@ class ClassifierAgent:
         api_key = os.environ.get("ANTHROPIC_API_KEY")
         if not api_key:
             raise EnvironmentError("ANTHROPIC_API_KEY nao definida")
+        try:
+            import anthropic
+        except ImportError as exc:
+            raise ImportError("anthropic nao instalado. Execute: pip install anthropic") from exc
+
         self._client = anthropic.Anthropic(api_key=api_key)
         self._model = "claude-sonnet-4-6"
+
+    @staticmethod
+    def _extrair_json(conteudo: str) -> dict:
+        inicio = conteudo.find("{")
+        fim = conteudo.rfind("}") + 1
+        if inicio == -1 or fim == 0:
+            raise ValueError(f"LLM nao retornou JSON valido: {conteudo[:200]}")
+
+        try:
+            return json.loads(conteudo[inicio:fim])
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"JSON invalido retornado pelo LLM: {conteudo[:200]}") from exc
 
     def classificar(self, issue: IssueInput, contexto_erro: str = "") -> IssueClassification:
         prompt = PROMPT_TEMPLATE.format(
@@ -85,12 +71,5 @@ class ClassifierAgent:
         )
 
         conteudo = resposta.content[0].text.strip()
-
-        # extrai JSON mesmo se vier com texto ao redor
-        inicio = conteudo.find("{")
-        fim = conteudo.rfind("}") + 1
-        if inicio == -1 or fim == 0:
-            raise ValueError(f"LLM nao retornou JSON valido: {conteudo[:200]}")
-
-        dados = json.loads(conteudo[inicio:fim])
+        dados = self._extrair_json(conteudo)
         return IssueClassification(**dados)

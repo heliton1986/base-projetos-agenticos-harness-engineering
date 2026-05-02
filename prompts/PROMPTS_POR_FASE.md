@@ -23,13 +23,23 @@ Leia os seguintes documentos da base de harness em `[HARNESS_BASE_PATH]`:
 - `01_FRAMEWORK_PRATICO_HARNESS_AGENTIC_SYSTEMS.md`
 - `02_DOE_OPERACIONAL_PARA_HARNESS.md`
 - `03_BOOTSTRAP_PROJETO_AGENTICO.md`
+- `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md`
+- `05_KB_MINIMA_PARA_PROJETOS_AGENTICOS.md`
 - `06_PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md`
+- `09_TEMPLATES_PARA_BASE_HARNESS.md`
 - `10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md`
 - `11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md`
+- `12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md`
 - `13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md`
 - `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`
 - `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md`
 - `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md`
+
+Se o projeto for multi-agent ou houver duvida sobre criacao de papeis, leia tambem:
+- `14_EXPANSAO_DE_PAPEIS_AGENTICOS.md`
+
+Se o projeto incluir UI, API com verificacao live ou observabilidade visual, leia tambem:
+- `07_FRONTEND_OBSERVAVEL_PARA_AGENTES.md`
 
 Me ajude a definir um novo projeto agentico.
 
@@ -93,6 +103,7 @@ Ao montar AGENTS.md, directives/ e spec/, deixe explicito:
 - como `implementation/` deve refletir a fase atual — obrigatorio se o projeto for multi-agent (CrewAI, LangGraph com multiplos nos, handoff entre agentes); opcional apenas para projetos de agente unico com menos de 4 fases
 - se a fase atual precisa de task contracts formais
 - quais contratos minimos de dados precisam existir antes da primeira capacidade
+- qual template da base foi usado para cada artefato obrigatorio criado
 
 Nao implemente ainda o sistema inteiro. Foque no bootstrap correto do projeto.
 

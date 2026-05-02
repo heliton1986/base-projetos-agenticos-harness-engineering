@@ -1,5 +1,7 @@
 # Contratos de Dados — Issue Triage Agent
 
+Fonte executavel correspondente: `src/contracts/issue_contract.py`
+
 ## IssueInput
 
 Entrada do sistema. Fornecida pelo chamador.

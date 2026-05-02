@@ -25,10 +25,27 @@ Obrigatorio, nesta ordem:
 5. `.claude/kb/model-routing/quick-reference.md`
 6. `.claude/kb/agent-contracts/quick-reference.md`
 7. `.claude/kb/autonomy-guardrails/quick-reference.md`
-8. `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md` — quando usar framework vs implementacao manual
-9. `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md` — guardrails, JIT context, docstring-as-spec, convergence formula
-10. `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` — seguir checklist item a item
-11. `prompts/PROMPT_MESTRE_INICIAL.md`
+8. `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` — seguir checklist item a item
+9. `05_KB_MINIMA_PARA_PROJETOS_AGENTICOS.md` — kb-first como memoria operacional reutilizavel
+10. `06_PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md` — gates reais, contratos e loop de correcao
+11. `09_TEMPLATES_PARA_BASE_HARNESS.md` — nenhum artefato nasce sem template correspondente
+12. `10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md` — definir antes de implementar qualquer agente
+13. `11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md` — execucao, correcao, reexecucao e validacao
+14. `12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md` — handoff entre papeis
+15. `13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md` — agente, modelo, status, retries, validacao
+16. `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` — ordem de entrega incremental verificavel
+17. `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md` — quando usar framework vs implementacao manual
+18. `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md` — guardrails, JIT context, docstring-as-spec, convergence formula
+19. `prompts/PROMPT_MESTRE_INICIAL.md`
+
+Obrigatorio por contexto ao criar projeto novo:
+
+- `14_EXPANSAO_DE_PAPEIS_AGENTICOS.md` — quando o projeto for multi-agent ou houver duvida sobre criar novos papeis
+- `07_FRONTEND_OBSERVAVEL_PARA_AGENTES.md` — quando houver UI, API com verificacao live ou necessidade de observabilidade visual
+
+Complementar:
+
+- `08_ESTRUTURA_OPCIONAL_KB_REFERENCES_VISUALS_EXAMPLES.md` — camada opcional de apoio, exemplos, references e visuals
 
 ### Ao evoluir projeto existente
 

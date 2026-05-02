@@ -1,19 +1,6 @@
 from datetime import datetime, timezone
-from typing import Optional
 
-from pydantic import BaseModel
-from typing import Literal
-
-from .classifier_agent import IssueClassification, IssueInput
-
-
-class IssueReport(BaseModel):
-    input: IssueInput
-    classificacao: Optional[IssueClassification]
-    timestamp_utc: str
-    tentativas: int
-    status: Literal["aprovado", "falhou"]
-    erro: Optional[str] = None
+from ..contracts.issue_contract import IssueClassification, IssueInput, IssueReport
 
 
 class ReporterAgent:

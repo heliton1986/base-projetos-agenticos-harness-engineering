@@ -154,7 +154,7 @@ A pasta `exemplos/` contem projetos canonicos completos — demonstracoes end-to
 
 A pasta `tools/` contem ferramentas de suporte a gestao da base e dos projetos derivados.
 
-- `tools/validate_harness_project.py` — validador automatico de conformidade Harness Engineering. Verifica 11 criterios (estrutura, conteudo, portabilidade). Uso: `python tools/validate_harness_project.py <caminho-do-projeto>`
+- `tools/validate_harness_project.py` — validador automatico de conformidade Harness Engineering. Verifica estrutura, contratos, execucao, documentacao e portabilidade. Uso: `python tools/validate_harness_project.py <caminho-do-projeto>`
 
 ## Pasta templates/
 
@@ -213,6 +213,7 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 
 - `05_KB_MINIMA_PARA_PROJETOS_AGENTICOS.md` — sem isso a LLM repete reexplicacoes a cada sessao e preenche lacunas com suposicoes
 - `06_PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md` — sem isso gates viram checklist estatico sem execucao real
+- `09_TEMPLATES_PARA_BASE_HARNESS.md` — formaliza a regra estrutural da base: prompts definem a fase, templates definem o formato. Nenhum artefato deve nascer sem template
 - `10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md` — definir antes de implementar qualquer agente
 - `11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md` — comportamento da LLM ao operar fluxos
 - `12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md` — handoff entre agentes e distribuicao de execucao
@@ -220,6 +221,14 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` — guia incremental de entrega por fases verificaveis
 - `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md` — progressao obrigatoria dominio+contratos+CI antes do framework
 - `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md` — guardrail vs constraint, Tool/Agent/Workflow, loop autocorrecao, docstring-as-spec
+
+### Obrigatorio em projetos multi-agent
+
+- `14_EXPANSAO_DE_PAPEIS_AGENTICOS.md` — define quando criar novos papeis, como explicitar handoff, validacao, tools permitidas e estrategia de modelos sem ornamentacao arquitetural
+
+### Obrigatorio por capacidade
+
+- `07_FRONTEND_OBSERVAVEL_PARA_AGENTES.md` — quando houver UI, API com verificacao live ou necessidade de mostrar agentes, modelos, validacao e progresso no frontend
 
 ### Padroes obrigatorios de execucao (derivados de projetos reais)
 
@@ -231,10 +240,7 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 
 ### Complementar
 
-- `07_FRONTEND_OBSERVAVEL_PARA_AGENTES.md`
 - `08_ESTRUTURA_OPCIONAL_KB_REFERENCES_VISUALS_EXAMPLES.md`
-- `09_TEMPLATES_PARA_BASE_HARNESS.md`
-- `14_EXPANSAO_DE_PAPEIS_AGENTICOS.md`
 
 ## Como usar para iniciar um projeto novo
 

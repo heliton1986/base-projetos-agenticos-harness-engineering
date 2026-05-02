@@ -22,9 +22,12 @@ Cole o texto abaixo como prompt, substituindo os campos marcados com `[...]`.
 ```
 Leia antes de qualquer acao:
 - [BASE_PATH]/AGENTS.md
+- [BASE_PATH]/05_KB_MINIMA_PARA_PROJETOS_AGENTICOS.md
 - [BASE_PATH]/06_PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md
+- [BASE_PATH]/09_TEMPLATES_PARA_BASE_HARNESS.md
 - [BASE_PATH]/10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md
 - [BASE_PATH]/11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md
+- [BASE_PATH]/12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md
 - [BASE_PATH]/13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md
 - [BASE_PATH]/15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md
 - [BASE_PATH]/17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md
@@ -33,6 +36,12 @@ Leia antes de qualquer acao:
 - [BASE_PATH]/templates/TEMPLATE_TASK_CONTRACT.md
 - [BASE_PATH]/templates/TEMPLATE_TESTS.md
 - [BASE_PATH]/templates/TEMPLATE_CI.md
+
+Se o projeto for multi-agent ou houver duvida sobre criacao de papeis, leia tambem:
+- [BASE_PATH]/14_EXPANSAO_DE_PAPEIS_AGENTICOS.md
+
+Se o projeto incluir UI, API com verificacao live ou observabilidade visual, leia tambem:
+- [BASE_PATH]/07_FRONTEND_OBSERVAVEL_PARA_AGENTES.md
 
 O projeto sera criado em: [CAMINHO_DO_PROJETO]
 

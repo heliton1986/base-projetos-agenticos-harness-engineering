@@ -213,3 +213,26 @@ Use nomes de modelos reais apenas como exemplo ou quando o projeto ja souber qua
   - Reporter: modelo economico ou medio
 - Fora de escopo: `nao executar pagamento, nao integrar banco externo e nao fazer previsao financeira por ML nesta fase`
 ```
+
+## Exemplo 11 - FinanceOps v2 como recriacao controlada
+
+- Nome: `FinanceOps v2`
+- Objetivo: `Recriar o FinanceOps Agent como projeto canonico derivado da base atual, capaz de consolidar lancamentos financeiros, detectar inconsistencias com regras fixas + LLM e gerar relatorio executivo com trilha de auditoria e validacao contratual entre fases.`
+- Dominio: `financas`
+- Usuario ou operacao alvo: `analistas financeiros, controller e operacao de auditoria interna`
+- Stack preferida: `Python + FastAPI + PostgreSQL + Streamlit`
+- Integracoes previstas: `ERP interno, planilhas CSV e banco PostgreSQL`
+- Restricoes importantes: `nao alterar lancamentos automaticamente, manter audit_log imutavel, mascarar dados sensiveis antes de qualquer envio ao LLM, exigir testes offline sem DB e sem LLM real e priorizar aderencia estrita a base atual`
+- Estrategia inicial de modelos por papel: `OrchestratorAgent: sem LLM se possivel; IngestionAgent: sem LLM; DetectorAgent: modelo robusto para analise semantica; ValidatorAgent: sem LLM; ReporterAgent: sem LLM`
+- Fora de escopo: `nao executar pagamento, nao integrar banco externo, nao fazer previsao financeira por ML e nao migrar para framework multi-agent na primeira versao`
+
+Observacoes especificas deste caso:
+
+- projeto historico de referencia: `projeto-teste-financeops-agent`
+- a base atual prevalece se houver conflito com a implementacao antiga
+- separar contratos em dois niveis:
+  - `contracts/*.md` para contratos documentais e task contracts
+  - `src/contracts/*.py` para contratos executaveis tipados
+- listar explicitamente as divergencias esperadas entre o projeto historico e o novo projeto
+
+Ref. pronta para uso: `prompts/PROMPT_FINANCEOPS_V2_CANONICO.md`

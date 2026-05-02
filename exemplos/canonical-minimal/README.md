@@ -2,7 +2,7 @@
 
 ## Visao Geral
 
-Recebe texto de issue (bug report, feature request, duvida), classifica severidade e categoria, e gera relatorio estruturado. Construido com `Harness Engineering`: OrchestratorAgent + ClassifierAgent + ReporterAgent + validacao independente.
+Recebe texto de issue (bug report, feature request, duvida), classifica severidade e categoria, e gera relatorio estruturado. Construido com `Harness Engineering`: OrchestratorAgent + ClassifierAgent + ValidatorAgent + ReporterAgent.
 
 ## Objetivo
 
@@ -23,7 +23,7 @@ Texto da issue (entrada)
         |
         +---> [ClassifierAgent]   (classifica severidade e categoria via LLM)
         |
-        +---> [ValidatorAgent]    (valida contrato de saida do ClassifierAgent)
+        +---> [ValidatorAgent]    (valida contratos Pydantic entre etapas)
         |
         +---> [ReporterAgent]     (gera relatorio estruturado)
         |
@@ -39,7 +39,7 @@ Texto da issue (entrada)
 |--------|-----------|
 | LLM | Claude claude-sonnet-4-6 (via API Anthropic) |
 | Agentes | Python puro (sem framework) |
-| Validacao | Pydantic + pytest |
+| Validacao | Pydantic + pytest + coverage |
 | Persistencia | Arquivo JSON (simplicidade canonica) |
 
 ## Modelo Operacional DOE
@@ -59,7 +59,7 @@ Loop             → se falhar: retentar com contexto de erro
 Gate             → aprovado quando severidade + categoria validas
 ```
 
-Contratos: `contracts/issue_contract.md`. Gates: `spec/03-design.md`.
+Contratos documentais: `contracts/issue_contract.md`. Contratos executaveis: `src/contracts/issue_contract.py`. Gates: `spec/03-design.md`.
 
 ## Estrategia de Modelos por Agente
 
@@ -76,13 +76,16 @@ Ref: `[HARNESS_BASE_PATH]/10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md`
 
 ```bash
 # Instalar dependencias
-pip install anthropic pydantic pytest
+pip install -r requirements.txt
 
 # Configurar API key
 export ANTHROPIC_API_KEY=sk-...
 
 # Rodar onboarding (verifica ambiente)
 python execution/run_onboarding_flow.py
+
+# Rodar testes offline
+pytest tests/ -v --tb=short
 
 # Rodar classificacao de exemplo
 python src/agents/orchestrator.py
@@ -101,12 +104,35 @@ canonical-minimal/
 │   ├── 02-define.md             # escopo definido
 │   └── 03-design.md             # arquitetura + gates
 ├── contracts/
-│   └── issue_contract.md        # contrato de entrada/saida
+│   └── issue_contract.md        # contrato documental de entrada/saida
+├── implementation/
+│   └── 01-bootstrap-issue-triage.md  # runbook minimo da fase atual
+├── progress/
+│   ├── PROGRESS.md              # memoria operacional
+│   └── VALIDATION_STATUS.md     # ultimo estado de validacao
+├── tests/
+│   ├── test_classifier.py       # parser e classificacao com fake client
+│   ├── test_orchestrator.py     # retries e gates deterministas
+│   ├── test_reporter.py         # geracao de relatorio
+│   └── test_validator.py        # contratos validos e invalidos
 ├── src/agents/
 │   ├── orchestrator.py          # coordenador de fluxo
 │   ├── classifier_agent.py      # classifica via LLM
+│   ├── validator_agent.py       # valida contratos Pydantic
 │   └── reporter_agent.py        # gera relatorio
+├── src/contracts/
+│   └── issue_contract.py        # contratos executaveis em runtime
 ├── execution/
 │   └── run_onboarding_flow.py   # smoke tests do ambiente
+├── .github/workflows/tests.yml  # CI offline com coverage
+├── .coveragerc                  # coverage minima sobre src/
+├── requirements.txt             # dependencias do exemplo
 └── model_routing.yaml           # estrategia de modelos por agente
 ```
+
+## Observacoes de alinhamento com a base
+
+- Este exemplo agora segue a regra de `implementation/` obrigatorio em projetos multi-agent.
+- Os contratos foram separados em dois papeis: `.md` documental e `.py` executavel.
+- Os testes rodam offline: sem API real, sem LLM real, sem servicos externos.
+- CI e coverage estao preparados antes de qualquer futura migracao para framework.

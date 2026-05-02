@@ -58,7 +58,7 @@ def gate_pydantic():
 @gate("IssueInput valida texto vazio")
 def gate_issue_input_validacao():
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-    from src.agents.classifier_agent import IssueInput
+    from src.contracts.issue_contract import IssueInput
     from pydantic import ValidationError
 
     try:
@@ -70,7 +70,7 @@ def gate_issue_input_validacao():
 
 @gate("IssueClassification rejeita valores invalidos")
 def gate_classification_contract():
-    from src.agents.classifier_agent import IssueClassification
+    from src.contracts.issue_contract import IssueClassification
     from pydantic import ValidationError
 
     try:
@@ -85,10 +85,26 @@ def gate_classification_contract():
         pass
 
 
+@gate("ValidatorAgent valida payload conhecido")
+def gate_validator_agent():
+    from src.agents.validator_agent import ValidatorAgent
+
+    vr = ValidatorAgent().validar_payload(
+        "IssueClassification",
+        {
+            "severidade": "alta",
+            "categoria": "bug",
+            "justificativa": "Erro reproduzivel em ambiente de producao com impacto claro",
+            "confianca": "alta",
+        },
+    )
+    assert vr.valido is True, f"ValidatorAgent retornou erro: {vr.erros}"
+
+
 @gate("Regras de negocio: critica + feature rejeitada")
 def gate_business_rules():
     from src.agents.orchestrator import validar_regras_negocio
-    from src.agents.classifier_agent import IssueClassification
+    from src.contracts.issue_contract import IssueClassification
 
     invalido = IssueClassification(
         severidade="critica",
@@ -102,7 +118,7 @@ def gate_business_rules():
 
 @gate("ReporterAgent gera IssueReport aprovado")
 def gate_reporter():
-    from src.agents.classifier_agent import IssueInput, IssueClassification
+    from src.contracts.issue_contract import IssueClassification, IssueInput
     from src.agents.reporter_agent import ReporterAgent
 
     issue = IssueInput(texto="Sistema fora do ar apos deploy, usuarios bloqueados")
