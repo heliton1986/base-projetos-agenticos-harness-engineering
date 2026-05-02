@@ -130,10 +130,12 @@ Prompt de **definicao** — para apos Fase 1 e aguarda aprovacao antes de criar 
 ### PROMPT_NOVO_PROJETO.md
 
 Prompt de **execucao autonoma** — cria o projeto completo do zero sem aprovacao fase a fase, com gates embutidos e obrigatorios. Indicado para projetos com brief claro e dominio conhecido.
+Este e o **modo operacional padrao** que a base quer privilegiar no estado maduro.
 
 ### PROMPTS_POR_FASE.md
 
 Prompts **modulares** — um por fase (definicao, bootstrap, validacao, implementacao, expansao). Usar quando quiser controle granular aprovando fase por fase.
+Tambem e o modo recomendado para **validacao da propria base**, projetos canonicos e casos onde voce quer auditar a aderencia estrutural antes de deixar a execucao seguir sozinha.
 
 ### EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md
 
@@ -142,6 +144,7 @@ Exemplos prontos de preenchimento dos campos dos prompts acima. Usar como refere
 **Ordem de uso:**
 - Dominio incerto: `PROMPT_MESTRE_INICIAL.md` → `PROMPTS_POR_FASE.md`
 - Brief claro: `PROMPT_NOVO_PROJETO.md` direto
+- Validacao da base / caso canonico / recriacao controlada: `PROMPT_MESTRE_INICIAL.md` → `PROMPTS_POR_FASE.md`
 - Referencia de preenchimento: `EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md` (consulta, nao prompt)
 
 ## Pasta exemplos/

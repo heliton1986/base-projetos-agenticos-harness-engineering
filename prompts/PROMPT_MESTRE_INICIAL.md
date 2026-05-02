@@ -6,6 +6,24 @@ Este arquivo serve como prompt mestre reutilizavel para iniciar um novo projeto 
 
 Ele deve ser usado como prompt de abertura e alinhamento, nao como pedido para implementar tudo de uma vez.
 
+## Quando usar
+
+Use este prompt quando quiser separar definicao de implementacao.
+
+E o caminho preferencial quando:
+
+- o dominio ainda precisa ser lapidado
+- o projeto serve para validar a propria base
+- o caso sera usado como referencia canonica
+- ha recriacao controlada de um projeto anterior
+- voce quer auditar a aderencia estrutural antes de deixar a execucao seguir sozinha
+
+Resultado esperado:
+
+- a LLM define primeiro
+- a base e aprovada antes da primeira capacidade
+- a implementacao segue depois, normalmente com `PROMPTS_POR_FASE.md`
+
 ## Como usar
 
 Substitua os campos entre colchetes e envie para a LLM.

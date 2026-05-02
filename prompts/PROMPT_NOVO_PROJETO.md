@@ -11,6 +11,46 @@ Diferente de `PROMPT_MESTRE_INICIAL.md` (que para apos definicao e aguarda aprov
 Use quando quiser que a LLM crie o projeto do zero sem aprovacao a cada fase.
 Indicado para projetos com brief claro e dominio ja conhecido.
 
+## Modos de uso
+
+Este prompt opera em dois modos possiveis:
+
+### Modo 1 - Operacional Padrao
+
+E o modo preferencial da base no estado maduro.
+
+Use quando:
+
+- o brief esta claro
+- o dominio ja e conhecido
+- voce quer alta autonomia
+- a base do projeto pode seguir direto do bootstrap para a primeira capacidade incremental
+
+Comportamento esperado:
+
+- a LLM le a base obrigatoria
+- escolhe o bootstrap mais adequado
+- cria o projeto
+- valida os gates minimos
+- continua automaticamente ate a primeira capacidade verificavel
+- para apenas em bloqueio real
+
+### Modo 2 - Validacao da Base ou Caso Canonico
+
+Use este mesmo prompt apenas como referencia de autonomia-alvo, mas prefira `PROMPT_MESTRE_INICIAL.md` + `PROMPTS_POR_FASE.md` quando:
+
+- o projeto serve para validar a propria base
+- o caso sera usado como referencia canônica
+- ha conflito historico entre exemplos antigos e a base atual
+- voce quer auditar em detalhe cada fase antes da implementacao
+
+Comportamento esperado:
+
+- definicao separada do bootstrap
+- validacao explicita da base antes da primeira capacidade
+- maior rastreabilidade entre fases
+- menor risco de mascarar inconsistencias estruturais da base
+
 ## Como usar
 
 Cole o texto abaixo como prompt, substituindo os campos marcados com `[...]`.
@@ -68,6 +108,14 @@ Pare apenas em:
 - risco de escrita indevida em fonte sensivel
 
 Em todos os outros casos: aja, corrija se necessario, reporte resultado.
+
+Se durante a execucao ficar claro que o projeto e na verdade um caso de validacao da base ou um caso canonico sensivel, rebaixe automaticamente para o modo faseado:
+
+- usar definicao primeiro
+- aprovar a base
+- so depois implementar a primeira capacidade
+
+Sem abandonar a autonomia local dentro de cada fase.
 
 ---
 

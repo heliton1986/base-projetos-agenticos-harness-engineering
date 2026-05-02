@@ -13,6 +13,10 @@ Prompt pronto para iniciar o `financeops-v2` com `PROMPT_MESTRE_INICIAL`, ja ali
 
 Copie o bloco abaixo e envie como prompt inicial na sessao que vai criar o projeto.
 
+Depois da Fase 1 aprovada, continue com:
+
+- `prompts/PROMPTS_FINANCEOPS_V2_POR_FASE.md`
+
 ```text
 Leia a base de harness em:
 
