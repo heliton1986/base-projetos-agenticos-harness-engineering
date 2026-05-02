@@ -88,6 +88,8 @@ Aguardando respostas para continuar.
 
 Gerar: README.md, AGENTS.md, spec/, directives/domain.md, directives/business-rules.md, .env.example, progress/PROGRESS.md, progress/VALIDATION_STATUS.md
 
+Se o projeto for multi-agent (CrewAI, LangGraph com multiplos nos, handoff entre agentes): criar tambem `implementation/` com runbooks de fase. Obrigatorio — nao opcional. Ver `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`.
+
 Usar templates da base para cada artefato.
 
 Narrar antes de executar:
@@ -222,6 +224,26 @@ Reportar no chat:
 N/N testes · coverage X% · tempo Xs
 
 ---
+
+## Etapa 4.5 — Integration Test (quando houver LLM)
+
+Se o projeto tiver agente com chamada LLM real (ex: DetectorAgent, ClassifierAgent):
+
+Gerar `tests/test_[agente]_integration.py` com:
+- `pytest.mark.skipif(not os.getenv("API_KEY"), reason="API key nao configurada")` — pula no CI, roda local
+- `NomeAgente()` instanciado real (nao mock, nao `__new__`)
+- Fixture com casos que exercitam o caminho semantico
+- Gate deterministico: validar contrato Pydantic via ValidatorAgent — NAO afirmar qual inconsistencia a LLM encontrou
+- Mock tests separados para retry logic, parsing e paths de erro (CI-safe)
+
+Regra: mock testa logica de controle Python; integration test valida que o pipeline completo retorna contrato valido com API real.
+
+Reportar no chat:
+[Etapa 4.5 — Integration Test] APROVADO ✓
+| Teste                     | Tipo        | Status |
+|---------------------------|-------------|--------|
+| test_[agente]_integration | API real    | PASS   |
+| test_[agente] (mocks)     | CI-safe     | PASS   |
 
 ## Etapa 5 — CI
 

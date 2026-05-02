@@ -70,7 +70,7 @@ Ao montar AGENTS.md, directives/ e spec/, deixe explicito:
 - quais tools podem ser usadas por cada papel
 - quais modelos fazem sentido para cada papel, se aplicavel
 - quais validacoes minimas sao gates obrigatorios
-- como `implementation/` deve refletir a fase atual
+- como `implementation/` deve refletir a fase atual — obrigatorio se o projeto for multi-agent (CrewAI, LangGraph com multiplos nos, handoff entre agentes); opcional apenas para projetos de agente unico com menos de 4 fases
 - se a fase atual precisa de task contracts formais
 - quais contratos minimos de dados precisam existir antes da primeira capacidade
 

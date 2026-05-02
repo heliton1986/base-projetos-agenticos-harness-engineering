@@ -31,6 +31,10 @@ Se fizer sentido enriquecer a base com camadas opcionais de apoio, consulte tamb
 - `[HARNESS_BASE_PATH]/11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md`
 - `[HARNESS_BASE_PATH]/12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md`
 - `[HARNESS_BASE_PATH]/13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md`
+- `[HARNESS_BASE_PATH]/14_EXPANSAO_DE_PAPEIS_AGENTICOS.md`
+- `[HARNESS_BASE_PATH]/15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`
+- `[HARNESS_BASE_PATH]/17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md`
+- `[HARNESS_BASE_PATH]/18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md`
 
 Quero iniciar um novo projeto agentico em:
 
@@ -59,6 +63,8 @@ Importante:
 - Nao declare uma fase como pronta sem evidencias de validacao
 - Ao propor multi-agent, deixe claro quando usar agente unico e quando usar subagentes especializados
 - Ao propor subagentes, especifique papel, handoff, tools permitidas e output esperado
+- Se o projeto for multi-agent, `implementation/` e obrigatorio — nao opcional. Agentes autonomos nao tem contexto de sessao; sem runbooks de fase explícitos, improvisam ordem e pulam validacoes
+- Ao reportar execucao no chat, seguir padrao: checklist por etapa com agente + modelo LLM quando chamado + tabela para dados estruturados (ver `13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md`)
 
 Sua tarefa inicial neste momento e apenas a `Fase 1: Definicao`.
 
