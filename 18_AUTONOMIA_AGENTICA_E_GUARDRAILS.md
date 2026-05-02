@@ -237,6 +237,28 @@ Consequencia direta:
 
 Isso e o que `ValidatorAgent` + CI + Pydantic fazem no harness. Nao eliminam nao-determinismo — tornam o resultado final determinístico apesar dele.
 
+### A formula da convergencia
+
+```
+∞ Code Paths × 7 Gates = 1 Outcome
+```
+
+O agente pode gerar o codigo de infinitas formas. Com gates suficientes, todos convergem para o mesmo comportamento observavel.
+
+**3 principios que explicam por que funciona:**
+
+1. **Context = Constraint** — Arquivos de contexto (AGENTS.md, system prompt, KB specs) ocupam o context window. Mais spec = distribuicao mais estreita sobre os proximos tokens.
+2. **Test Loop = Convergencia** — write → test → read error → fix → re-test em loop. Apos 2-3 iteracoes, todas as solucoes convergem para o mesmo comportamento observavel.
+3. **Gates = Fronteira Rigida** — Quality gates atuam como filtro binario accept/reject. A variancia no codigo e irrelevante porque a variancia no resultado e zero.
+
+**O reframe pratico:**
+
+```
+Spec vaga      → Alta variancia (alucinacoes)
+Spec           → Variancia controlada
+Spec + Gates   → Outcome deterministico
+```
+
 ### O que controlar
 
 | Nao controlar | Controlar |
@@ -288,6 +310,64 @@ Escreva a docstring respondendo: "Em que situacao o agente deve escolher esta to
 Se a docstring nao responde isso, o agente vai escolher errado.
 
 Fonte: Semana AI Data Engineer 2026, Dia 3 — ShopAgent tools.py
+
+---
+
+## Just-in-Time Context
+
+Injetar o contexto certo no momento certo — nao tudo de uma vez.
+
+O system prompt nao e o lugar correto para toda informacao que o agente pode precisar. Colocar 500 linhas no system prompt e esperar que o agente filtre e ineficiente e aumenta variancia.
+
+No LangGraph, cada no recebe apenas o que precisa para sua decisao:
+
+```python
+# Sem JIT: tudo no system prompt (contexto explode, agente filtra errado)
+# Com JIT: cada no injeta o que precisa
+node_detector: inject("regras de duplicata + candidatos")
+node_validator: inject("contrato Pydantic + output do detector")
+```
+
+**Relacao com o harness:**
+- JIT Context e o *por que* do ValidatorAgent receber so o output do agente anterior — nao o contexto completo
+- Docstring de tool = JIT Context em miniatura: o agente le so o criterio de uso daquela tool
+- Oposto de: context window monolitico que o agente "vai entender"
+
+Fonte: VIDEO3 — Ryan Lopopolo
+
+---
+
+## "Every `continue` is a harness failure"
+
+Intervencao manual no agente = gap no harness, nao falha do modelo.
+
+Se voce digitou "continue", corrigiu manualmente, ou reescreveu um output do agente:
+
+1. Identifique qual contexto estava faltando
+2. Adicione como regra, guardrail, ou entrada na KB
+3. Na proxima sessao, o agente se autocorrige sem intervencao
+
+**Metrica de qualidade do harness:** contar intervencoes manuais por sessao. Tendencia deve ser decrescente. Se cresce, o harness esta regredindo.
+
+**Anti-padrao:** aceitar "tenho que ficar corrigindo o agente" como estado normal. E sinal de harness incompleto, nao limitacao do modelo.
+
+Fonte: VIDEO3 — Ryan Lopopolo
+
+---
+
+## Papel do Engenheiro: Triagem + Observabilidade + Metaprogramacao
+
+Em sistemas agenticos, o engenheiro nao escreve codigo — programa o harness que programa o agente.
+
+**Triagem:** revisar outputs, aprovar gates, escalar bloqueios reais ao cliente ou stakeholder.
+
+**Observabilidade:** monitorar agente, modelo, custo, latencia, qualidade por chamada. Sem observabilidade, nao ha base para melhorar.
+
+**Metaprogramacao:** melhorar o harness em si — prompts, regras, KB, guardrails, contratos. E o trabalho principal do engenheiro agentico.
+
+Nota: "metaprogramacao" aqui nao e metaprogramacao de codigo. E programar o sistema que programa o agente.
+
+Fonte: VIDEO3 — Ryan Lopopolo
 
 ---
 

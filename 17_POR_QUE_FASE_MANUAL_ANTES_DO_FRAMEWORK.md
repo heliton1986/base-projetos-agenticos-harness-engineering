@@ -25,6 +25,26 @@ O objetivo era ensinar cada camada antes de adicionar a próxima. É uma ramp di
 
 ---
 
+## As três eras de controle de software
+
+O contexto para entender por que a fase manual importa começa com como o controle sobre software evoluiu:
+
+| Era | Mecanismo de controle | Produtividade | Como se garante qualidade |
+|-----|----------------------|---------------|--------------------------|
+| **Software 1.0** | Autoria — 100% hand-written | ~100 linhas/dia | Testes manuais |
+| **Software 2.0** | Configuração — config over code | ~500 linhas/dia | Testes automatizados |
+| **Software 3.0** | Especificação — specs + guardrails | 5.000+ linhas/dia | Verificação de outcomes |
+
+O escopo do controle expandiu. O mecanismo mudou.
+
+"Control freaks aren't losing control. They're scaling it."
+
+Na era do Software 3.0, controlar qualidade não significa revisar cada linha de código gerado. Significa definir a especificação com precisão suficiente para que qualquer código que passe nos gates seja correto. A fase manual constrói exatamente isso: os contratos, gates e verificadores que tornam a verificação de outcomes possível.
+
+Fonte: Semana AI Data Engineer 2026, Dia 3 — slide "Three Eras of Control"
+
+---
+
 ## A fase manual é necessária, não desperdício
 
 A fase manual constrói o que o framework pressupõe que você já sabe:

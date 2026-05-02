@@ -120,6 +120,22 @@ Pergunta: "faturamento dos clientes que reclamam de entrega"
 → combina e responde
 ```
 
+### Arvore de decisao formal
+
+```
+Pergunta do Usuario
+  → Classificacao em Linguagem Natural
+    → Dados Exatos?  → execute_sql     (SELECT/AVG/COUNT — Postgres/SQL)
+    → Hibrido?       → ambas as tools  (Semantica + SQL na mesma query)
+    → Significado?   → semantic_search (Embeddings/similarity — Qdrant/vetores)
+```
+
+"O routing e o coracao da inteligencia do agente. Classificacao em linguagem natural decide o caminho antes de qualquer execucao."
+
+A inteligencia do sistema esta na qualidade do routing, nao na complexidade das tools.
+
+Fonte: Semana AI Data Engineer 2026, Dia 3 — slide "Como o Agente Decide"
+
 ## `requirements.txt` — adicionar
 
 ```
