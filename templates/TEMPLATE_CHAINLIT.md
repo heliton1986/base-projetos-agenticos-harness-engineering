@@ -157,6 +157,25 @@ omit =
 
 **Por que excluir:** `chainlit_app.py` e entrypoint Chainlit — requer runtime do servidor, nao testavel com pytest. Toda logica de negocio fica em `tools.py` e `agent.py` (testados offline).
 
+## Verificacao live obrigatoria (antes de declarar fase concluida)
+
+Apos implementar, subir e verificar o golden path no browser:
+
+```bash
+# 1. Subir
+chainlit run src/chainlit_app.py -w
+# abre http://localhost:8000
+```
+
+Golden path no browser:
+- enviar pergunta real (nao "oi") que aciona pelo menos uma tool
+- verificar streaming de tokens aparece progressivamente
+- verificar `cl.Step` da tool aparece expandivel no chat com input/output
+- verificar resposta final e coerente com os dados reais
+- verificar segunda pergunta na mesma sessao mantem contexto
+
+pytest offline nao substitui: testa apenas `tools.py` e `agent.py`. Verificacao live valida streaming, session isolation e tool steps visiveis.
+
 ## Regras
 
 - `chainlit_app.py` = apenas hooks Chainlit + chamada ao agente. Sem logica de negocio.

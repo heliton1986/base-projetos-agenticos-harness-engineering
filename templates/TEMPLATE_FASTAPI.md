@@ -125,6 +125,26 @@ def test_erro_runtime_vira_422(client):
     assert response.status_code == 422
 ```
 
+## Verificacao live obrigatoria (antes de declarar fase concluida)
+
+Apos implementar, subir o servico e verificar o golden path:
+
+```bash
+# 1. Subir
+python execution/run_api.py
+
+# 2. Smoke test — health
+curl http://localhost:8000/health
+# esperado: {"status": "ok"}
+
+# 3. Golden path — upload CSV real
+curl -X POST http://localhost:8000/processar \
+  -F "file=@tests/fixtures/lancamentos.csv"
+# esperado: JSON com relatorio sem erro 422/500
+```
+
+pytest offline nao substitui: TestClient mocka os agentes. Verificacao live valida stack completo (DB, LLM, parser).
+
 ## Regras
 
 - `GET /health` obrigatório — usado por CI e monitoramento

@@ -132,6 +132,25 @@ omit =
 
 **Por que excluir:** `app.py` é entrypoint Streamlit — requer runtime Streamlit, não testável com pytest. Toda lógica de negócio fica em `formatters.py` (testado 100%).
 
+## Verificacao live obrigatoria (antes de declarar fase concluida)
+
+Apos implementar, subir a UI e verificar o golden path:
+
+```bash
+# 1. Subir
+python execution/run_ui.py
+# abre http://localhost:8501
+
+# 2. Golden path — no browser:
+#    - fazer upload de CSV real (nao fixture mock)
+#    - verificar spinner de processamento aparece
+#    - verificar resultado renderiza sem erro (metricas, tabelas)
+#    - verificar botao de download funciona e JSON e valido
+#    - verificar mensagem de erro aparece para CSV invalido
+```
+
+pytest offline nao substitui: testa apenas `formatters.py`. Verificacao live valida stack completo (upload, agente, render).
+
 ## Regras
 
 - `app.py` = apenas código Streamlit (st.*) + chamada ao OrchestratorAgent

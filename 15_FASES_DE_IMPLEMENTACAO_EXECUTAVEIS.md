@@ -106,6 +106,18 @@ Uma boa fase executavel deve declarar pelo menos:
 - criterio de aprovacao
 - proxima fase sugerida
 
+### Gate adicional para fases com UI ou API
+
+Se a fase entrega FastAPI, Streamlit ou Chainlit, o criterio de aprovacao deve incluir verificacao live — nao apenas pytest:
+
+| Componente | Verificacao minima |
+|-----------|-------------------|
+| FastAPI | `GET /health` retorna 200 + golden path com CSV real sem erro 422/500 |
+| Streamlit | upload real + resultado renderiza + download funciona |
+| Chainlit | pergunta real + streaming visivel + `cl.Step` de tool aparece |
+
+pytest offline valida logica. Verificacao live valida stack completo. Os dois sao obrigatorios.
+
 ## Relacao com spec/
 
 A diferenca principal e:

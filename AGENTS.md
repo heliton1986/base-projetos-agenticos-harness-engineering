@@ -266,6 +266,7 @@ Nunca pular etapas. Nunca gerar artefato sem o template correspondente.
 4. **Os `.md` da base sao fonte de verdade** — se KB e `.md` conflitarem, prevalece o `.md`
 5. **Atualizar KB ao atualizar `.md`** — as duas fontes devem permanecer consistentes
 6. **`implementation/` obrigatorio em projetos multi-agent** — todo projeto com mais de um agente deve ter diretorio `implementation/` com plano de implementacao por agente antes de codar. Ref: `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`
+7. **Nunca declarar fase com UI/API concluida sem verificacao live** — apos implementar FastAPI, Streamlit ou Chainlit: subir o servico, verificar golden path manualmente (upload real, resposta esperada, sem erro na UI). pytest offline nao substitui verificacao live. Ref: templates `TEMPLATE_FASTAPI.md`, `TEMPLATE_STREAMLIT.md`, `TEMPLATE_CHAINLIT.md`
 
 ## Estrutura da base
 
