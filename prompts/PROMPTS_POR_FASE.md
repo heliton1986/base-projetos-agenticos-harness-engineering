@@ -6,6 +6,14 @@ Este arquivo organiza prompts curtos e reutilizaveis para criar projetos agentic
 
 A ideia e evitar implementacao one-shot e trabalhar em etapas controladas.
 
+## Nota de uso
+
+Estes prompts sao usados em sequencia — cada fase pressupoe que os docs lidos na Fase 1 permanecem no contexto da sessao.
+
+Se iniciar uma nova sessao em qualquer fase alem da 1, releia os docs da Fase 1 antes de continuar.
+
+---
+
 ## Fase 1 - Definicao
 
 Use este prompt para iniciar o projeto.
