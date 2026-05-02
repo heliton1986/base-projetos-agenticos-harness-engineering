@@ -61,21 +61,49 @@ Para cada execucao agentica, registrar pelo menos:
 
 ## O que mostrar no chat
 
-Em modo tecnico, a LLM pode mostrar:
+### Formato padrao — checklist por etapa
 
-- agente executado
-- modelo usado
-- provider, se relevante
-- status da etapa
-- erro encontrado
-- retry realizado
-- validacao aprovada ou nao
+Toda execucao agentica deve ser narrada no chat com o seguinte padrao:
 
-Em modo mais simples, pode resumir apenas:
+```
+✓ Etapa 1 — NomeAgente: o que fez + resultado quantificado
+✓ Etapa 2 — NomeAgente → modelo-llm: input → output
+■ Gate final — ValidatorAgent (Pydantic): PASSED/FAILED em Xs
+```
 
-- etapa
-- status
-- proximo passo
+Regras:
+- `✓` etapa concluida com sucesso
+- `■` gate ou resultado final
+- `✗` etapa com falha — detalhar o erro
+
+### Quando LLM foi usada
+
+Mostrar agente + modelo + fluxo de dados:
+
+```
+✓ DetectorAgent → claude-sonnet-4-6: 3 candidatos → 1 inconsistencia semantica
+```
+
+Nunca omitir o modelo quando uma chamada LLM foi feita.
+
+### Dados estruturados — usar tabela
+
+Coverage, status por agente, inconsistencias encontradas: sempre em tabela markdown, nao lista de texto.
+
+| Agente | Cobertura | Status |
+|--------|-----------|--------|
+| detector_agent | 100% | PASSED |
+| ingestion_agent | 100% | PASSED |
+
+### Incluir sempre
+
+- Nome do agente que executou
+- Modelo LLM usado quando houve chamada (ex: `claude-sonnet-4-6`)
+- Quantidade de itens processados
+- Inconsistencias/erros com tipo e detalhe
+- Status final e tempo de execucao quando relevante
+
+**Por que:** output do Bash fica colapsado na UI do Claude Code. O usuario ve apenas o chat — a narrativa deve ser informativa o suficiente para nao precisar expandir o terminal.
 
 ## O que mostrar no frontend
 

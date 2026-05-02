@@ -139,14 +139,29 @@ A LLM deve parar quando ocorrer uma destas condicoes:
 
 ## Como reportar no chat
 
-Ao operar um fluxo, a LLM deve reportar em updates curtos:
+Ao operar um fluxo, narrar cada etapa com o seguinte padrao:
 
-- o que esta executando
-- o resultado resumido
-- se encontrou erro
-- o que esta corrigindo
-- se reexecutou
-- se o sistema esta pronto ou nao
+```
+✓ Etapa 1 — NomeAgente: o que fez + resultado quantificado
+✓ Etapa 2 — NomeAgente → modelo-llm: input → output
+✗ Etapa 3 — NomeAgente: falhou — detalhe do erro
+■ Gate final — ValidatorAgent: PASSED/FAILED em Xs
+```
+
+Regras:
+- `✓` etapa concluida com sucesso
+- `✗` etapa com falha — detalhar o erro e o que foi corrigido
+- `■` gate ou resultado final
+
+Quando chamada LLM ocorreu, sempre mostrar agente + modelo:
+
+```
+✓ DetectorAgent → claude-sonnet-4-6: 3 candidatos → 1 inconsistencia
+```
+
+Para dados estruturados (coverage, status por agente, erros encontrados): usar tabela markdown, nao lista.
+
+Nunca omitir: nome do agente, modelo LLM usado, quantidade processada, status final.
 
 ## Relacao com o onboarding
 
