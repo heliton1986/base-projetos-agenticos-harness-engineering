@@ -167,7 +167,7 @@ Importante:
 - se usar subagentes, deixe claro papel, handoff, tools e output de cada um
 - explicite como a capacidade sera validada e quem valida
 
-Ao final, entregue:
+Ao final, responda no chat com um bloco estruturado contendo:
 - o que foi implementado
 - como validar
 - o que ainda nao foi feito

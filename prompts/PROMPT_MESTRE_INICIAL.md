@@ -93,7 +93,7 @@ Importante:
 
 Sua tarefa inicial neste momento e apenas a `Fase 1: Definicao`.
 
-Entregue apenas:
+Responda no chat apenas com:
 
 1. objetivo refinado do projeto
 2. escopo inicial

@@ -51,6 +51,7 @@ Projeto:
 - Usuario ou operacao alvo: `analistas financeiros, controller e operacao de auditoria interna`
 - Stack preferida: `Python + FastAPI + PostgreSQL + Streamlit`
 - Integracoes previstas: `ERP interno, planilhas CSV e banco PostgreSQL`
+- Expansoes futuras opcionais: `Qdrant para busca semantica/RAG quando houver memoria vetorial real, Chainlit se o produto evoluir para interface conversacional, Supabase apenas se fizer sentido consolidar Postgres + auth + storage gerenciado`
 - Restricoes importantes: `nao alterar lancamentos automaticamente, manter audit_log imutavel, mascarar dados sensiveis antes de qualquer envio ao LLM, operar com validacao contratual entre fases, exigir testes offline sem DB e sem LLM real, e priorizar aderencia estrita a base atual em vez de reproduzir exatamente o projeto FinanceOps anterior`
 - Estrategia inicial de modelos por papel: `OrchestratorAgent: sem LLM se possivel; IngestionAgent: sem LLM; DetectorAgent: modelo robusto para analise semantica; ValidatorAgent: sem LLM; ReporterAgent: sem LLM; verificacoes auxiliares: modelo economico apenas se realmente necessario`
 - Fora de escopo: `nao executar pagamento, nao integrar banco externo, nao fazer previsao financeira por ML, nao migrar para CrewAI ou LangGraph nesta primeira versao e nao priorizar compatibilidade retroativa com o projeto teste antigo quando isso conflitar com a base atual`
@@ -63,6 +64,7 @@ Contexto adicional obrigatorio:
 - Convencao de contratos obrigatoria neste novo projeto:
   - `contracts/*.md` para task contracts, contratos documentais e invariantes de fase/capacidade
   - `src/contracts/*.py` para contratos executaveis tipados usados em runtime e validados pelo `ValidatorAgent`
+- A stack inicial deve ser suficiente para a primeira versao validavel; so incluir `Qdrant`, `Chainlit` ou `Supabase` se a definicao da Fase 1 justificar explicitamente a necessidade
 
 Quero que voce siga a logica de harness e trabalhe em fases.
 
@@ -83,7 +85,7 @@ Importante:
 
 Sua tarefa inicial neste momento e apenas a `Fase 1: Definicao`.
 
-Entregue apenas:
+Responda no chat apenas com:
 
 1. objetivo refinado do projeto
 2. escopo inicial

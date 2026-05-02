@@ -222,6 +222,7 @@ Use nomes de modelos reais apenas como exemplo ou quando o projeto ja souber qua
 - Usuario ou operacao alvo: `analistas financeiros, controller e operacao de auditoria interna`
 - Stack preferida: `Python + FastAPI + PostgreSQL + Streamlit`
 - Integracoes previstas: `ERP interno, planilhas CSV e banco PostgreSQL`
+- Expansoes futuras opcionais: `Qdrant para busca semantica/RAG, Chainlit se houver interface conversacional, Supabase apenas se houver ganho claro em backend gerenciado`
 - Restricoes importantes: `nao alterar lancamentos automaticamente, manter audit_log imutavel, mascarar dados sensiveis antes de qualquer envio ao LLM, exigir testes offline sem DB e sem LLM real e priorizar aderencia estrita a base atual`
 - Estrategia inicial de modelos por papel: `OrchestratorAgent: sem LLM se possivel; IngestionAgent: sem LLM; DetectorAgent: modelo robusto para analise semantica; ValidatorAgent: sem LLM; ReporterAgent: sem LLM`
 - Fora de escopo: `nao executar pagamento, nao integrar banco externo, nao fazer previsao financeira por ML e nao migrar para framework multi-agent na primeira versao`

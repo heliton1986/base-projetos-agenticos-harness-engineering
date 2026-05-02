@@ -77,7 +77,7 @@ No bootstrap, deixe explicito:
 Nao implemente ainda o sistema inteiro.
 Foque no bootstrap estrutural correto.
 
-Ao final, entregue:
+Ao final, responda no chat com um bloco estruturado contendo:
 
 - resumo do que foi criado
 - estrutura de pastas
@@ -163,7 +163,7 @@ Regras:
 - criar ou ajustar testes offline para a capacidade implementada
 - registrar progresso em `progress/`
 
-Ao final, entregue:
+Ao final, responda no chat com um bloco estruturado contendo:
 
 - o que foi implementado
 - quais contratos foram criados ou refinados
@@ -200,7 +200,7 @@ Ainda nao implemente:
 - Streamlit
 - persistencia real em PostgreSQL
 
-Ao final:
+Ao final, responda no chat com um bloco estruturado contendo:
 
 - mostre quais regras foram implementadas
 - quais contratos de deteccao foram criados ou ajustados
@@ -234,7 +234,7 @@ Nao implemente ainda:
 - Streamlit
 - persistencia real completa
 
-Ao final:
+Ao final, responda no chat com um bloco estruturado contendo:
 
 - explique como o LLM entra no fluxo
 - quais guardrails foram adicionados
@@ -268,7 +268,7 @@ Regras:
 - o contrato documental correspondente deve existir em `contracts/*.md`
 - testes offline devem cobrir o relatorio final
 
-Ao final:
+Ao final, responda no chat com um bloco estruturado contendo:
 
 - mostrar o schema do relatorio final
 - mostrar como validar

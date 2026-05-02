@@ -114,6 +114,11 @@ Apos cada fase, imprimir no chat tabela ou bloco com:
 - resultado concreto por agente: tipo/severidade de inconsistencias, status, totais
 - qualquer detalhe que aparece no terminal mas fica colapsado na UI
 
+Quando um prompt disser `entregue`, `mostre`, `resuma` ou equivalente:
+- a saida final deve aparecer no chat em bloco estruturado
+- nao depender do output cru do Bash para o usuario entender o estado
+- comandos podem ser usados nos bastidores, mas o resultado consumivel deve ser textual e organizado na conversa
+
 Formato sugerido (adaptar ao dominio do projeto):
 
 ```
@@ -141,6 +146,7 @@ Formato sugerido (adaptar ao dominio do projeto):
 - Se falhou: informar erro exato antes de corrigir
 - Se bloqueio real: parar e explicar o que precisa de intervencao humana
 - Output do Bash fica colapsado na UI — tabela no chat e a unica visibilidade completa para o usuario
+- Sempre preferir bloco estruturado no chat a despejar saida bruta de terminal
 
 ### ValidatorAgent como gate entre fases (obrigatorio)
 
