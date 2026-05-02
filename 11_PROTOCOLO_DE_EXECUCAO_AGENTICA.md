@@ -163,6 +163,13 @@ Para dados estruturados (coverage, status por agente, erros encontrados): usar t
 
 Nunca omitir: nome do agente, modelo LLM usado, quantidade processada, status final.
 
+Entre uma etapa e outra, nao esperar apenas o resumo final:
+- depois de cada tool call, publicar um micro-resultado curto
+- se houve falha, mostrar o erro e a correcao tentada antes de seguir
+- se houve sucesso, mostrar o que foi validado e qual sera a proxima acao
+
+Objetivo: manter visibilidade continua no chat enquanto o fluxo ainda esta em andamento.
+
 ## Relacao com o onboarding
 
 Quando existir um `run_onboarding_flow.py`, a expectativa padrao e:

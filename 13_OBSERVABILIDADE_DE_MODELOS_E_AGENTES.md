@@ -75,6 +75,7 @@ Regras:
 - `✓` etapa concluida com sucesso
 - `■` gate ou resultado final
 - `✗` etapa com falha — detalhar o erro
+- entre etapas, publicar micro-updates curtos logo apos cada tool call para mostrar progresso continuo
 
 ### Quando LLM foi usada
 

@@ -114,6 +114,13 @@ Apos cada fase, imprimir no chat tabela ou bloco com:
 - resultado concreto por agente: tipo/severidade de inconsistencias, status, totais
 - qualquer detalhe que aparece no terminal mas fica colapsado na UI
 
+Depois de cada tool call individual, publicar tambem um micro-resultado imediato no chat antes da proxima acao:
+- o que acabou de acontecer
+- se passou, falhou ou ficou pendente
+- qual sera o proximo passo local
+
+Objetivo: reduzir espera silenciosa e manter o usuario vendo progresso quase em tempo real.
+
 Quando um prompt disser `entregue`, `mostre`, `resuma` ou equivalente:
 - a saida final deve aparecer no chat em bloco estruturado
 - nao depender do output cru do Bash para o usuario entender o estado
@@ -141,6 +148,7 @@ Formato sugerido (adaptar ao dominio do projeto):
 ### Regras
 
 - Nunca executar tool call silenciosamente — sempre anunciar antes com contexto
+- Nunca acumular varias acoes silenciosamente para resumir so no fim — cada tool call deve ter retorno curto antes da proxima
 - Sempre imprimir tabela de resultado depois de cada fase (nao so APROVADO/FALHOU)
 - **Coluna "Modelo" obrigatoria para todo agente que usa LLM** — nunca omitir. Agente deterministico: coluna omitida ou `— (deterministico)`. Agente LLM: modelo exato (ex: `claude-sonnet-4-6`). Isso vale para fases normais e para verificacao live de UI/API.
 - Se falhou: informar erro exato antes de corrigir
