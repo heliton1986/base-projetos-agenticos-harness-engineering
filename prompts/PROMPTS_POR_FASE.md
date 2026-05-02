@@ -11,7 +11,19 @@ A ideia e evitar implementacao one-shot e trabalhar em etapas controladas.
 Use este prompt para iniciar o projeto.
 
 ```text
-Leia a base de harness em `[HARNESS_BASE_PATH]` e me ajude a definir um novo projeto agentico.
+Leia os seguintes documentos da base de harness em `[HARNESS_BASE_PATH]`:
+- `01_FRAMEWORK_PRATICO_HARNESS_AGENTIC_SYSTEMS.md`
+- `02_DOE_OPERACIONAL_PARA_HARNESS.md`
+- `03_BOOTSTRAP_PROJETO_AGENTICO.md`
+- `06_PADRAO_BUILDER_VALIDATOR_E_TASK_CONTRACTS.md`
+- `10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md`
+- `11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md`
+- `13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md`
+- `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`
+- `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md`
+- `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md`
+
+Me ajude a definir um novo projeto agentico.
 
 Quero construir: [OBJETIVO]
 Dominio: [DOMINIO]
