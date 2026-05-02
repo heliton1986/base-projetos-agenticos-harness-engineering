@@ -91,11 +91,11 @@ Explica como usar fases executaveis para guiar a LLM por etapas de implementacao
 
 ### 17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md
 
-Fundamenta a progressao obrigatoria: dominio + contratos + testes + CI → framework. Explica por que pipeline manual nao e desperdicio — e a base que o framework pressupoe.
+Fundamenta a progressao obrigatoria: dominio + contratos + testes + CI → framework. Explica por que pipeline manual nao e desperdicio — e a base que o framework pressupoe. Inclui as tres eras de controle (Software 1.0/2.0/3.0) e por que controle por especificacao escala onde autoria e configuracao nao escalam.
 
 ### 18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md
 
-Formaliza: guardrail vs constraint, Tool vs Agent vs Workflow, loop de autocorrecao orquestrado, processos separados, docstring como spec do agente, feed forward vs feedback. Ler antes de qualquer decisao de arquitetura agentica.
+Formaliza: guardrail vs constraint, Tool vs Agent vs Workflow, feed forward vs feedback, docstring como spec do agente, Convergence Formula (∞ paths × gates = 1 outcome), 3 principios SDD (Context=Constraint, Test Loop=Convergencia, Gates=Fronteira Rigida), Just-in-Time Context, "every continue is a harness failure", Human Triad (triagem + observabilidade + metaprogramacao). Ler antes de qualquer decisao de arquitetura agentica.
 
 ## Documentos complementares
 
@@ -125,21 +125,24 @@ A pasta `prompts/` reúne os prompts reutilizáveis para usar a base.
 
 ### PROMPT_MESTRE_INICIAL.md
 
-Prompt de abertura para iniciar um projeto novo.
+Prompt de **definicao** — para apos Fase 1 e aguarda aprovacao antes de criar arquivos. Indicado para projetos com dominio a explorar.
+
+### PROMPT_NOVO_PROJETO.md
+
+Prompt de **execucao autonoma** — cria o projeto completo do zero sem aprovacao fase a fase, com gates embutidos e obrigatorios. Indicado para projetos com brief claro e dominio conhecido.
 
 ### PROMPTS_POR_FASE.md
 
-Fluxo disciplinado em fases:
-
-- definicao
-- bootstrap
-- validacao da base
-- implementacao incremental
-- expansao controlada
+Prompts **modulares** — um por fase (definicao, bootstrap, validacao, implementacao, expansao). Usar quando quiser controle granular aprovando fase por fase.
 
 ### EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md
 
-Traz exemplos prontos de preenchimento do prompt mestre para diferentes tipos de projeto.
+Exemplos prontos de preenchimento dos campos dos prompts acima. Usar como referencia — nunca enviar como prompt diretamente.
+
+**Ordem de uso:**
+- Dominio incerto: `PROMPT_MESTRE_INICIAL.md` → `PROMPTS_POR_FASE.md`
+- Brief claro: `PROMPT_NOVO_PROJETO.md` direto
+- Referencia de preenchimento: `EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md` (consulta, nao prompt)
 
 ## Pasta exemplos/
 
