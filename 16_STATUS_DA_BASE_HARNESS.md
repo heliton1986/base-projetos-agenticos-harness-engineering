@@ -13,17 +13,25 @@ Registro sintetico do estado atual da base. Responde diretamente:
 - o que e obrigatorio vs complementar
 - o que ainda pode evoluir
 
-## Versao atual: v1.7.0
+## Versao atual: v1.17.0
 
-A base evoluiu de v1.0 para v1.1 com as seguintes adicoes:
+### Historico de evolucao significativa
 
-- `AGENTS.md` proprio da base — contrato de comportamento da LLM ao usar a base
-- `.claude/kb/` — 5 dominios de padroes prontos (doe, builder-validator, execution-protocol, model-routing, agent-contracts)
-- 6 templates novos: `TEMPLATE_README.md`, `TEMPLATE_AGENTS.md`, `TEMPLATE_TASK_CONTRACT.md`, `TEMPLATE_SPEC_01/02/03`
-- Reclassificacao de documentos: nucleo / obrigatorio / complementar
-- `05_KB_MINIMA` promovido de complementar para obrigatorio
-- `04_CHECKLIST` atualizado com checklist completo de artefatos por fase
-- `README.md` atualizado com secao `.claude/kb/` e comportamento obrigatorio da LLM
+**v1.1–v1.7:** estrutura inicial — AGENTS.md, KB (5 dominios), 13 templates, classificacao nucleo/obrigatorio/complementar, CI/coverage, parser LLM, ValidatorAgent, session DB, audit_log, testes offline.
+
+**v1.8–v1.10:** adicao de padroes de orquestracao:
+- `12_ORQUESTRADOR_E_SUBAGENTES.md` — 7 padroes + processos separados vs subagentes + loop autocorrecao com MAX_CICLOS
+- `templates/TEMPLATE_LANGGRAPH.md` — create_react_agent + dual-store routing + docstring-as-spec
+- `templates/TEMPLATE_CHAINLIT.md` — lifecycle hooks + astream_events + cl.Step transparency
+- `.claude/kb/autonomy-guardrails/` — dominio KB com guardrail/constraint, checklist
+
+**v1.11–v1.17:** adicao de fundamentos de autonomia e progressao:
+- `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md` — Software 1.0/2.0/3.0, fundamentacao progressao manual→framework
+- `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md` — Convergence Formula, 3 principios SDD, JIT Context, "every continue is harness failure", Human Triad, docstring-as-spec, guardrail vs constraint, Tool/Agent/Workflow taxonomy
+- `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` — `implementation/` obrigatorio para projetos multi-agent
+- `11_` + `13_`: padrao narrativa no chat (checklist por etapa, agente+modelo, tabelas)
+- Todos os prompts atualizados com refs a 11_/13_/15_/17_/18_
+- Total: 21 templates obrigatorios
 
 ## Diagnostico Geral
 
@@ -47,6 +55,8 @@ Base madura para uso real em projetos agenticos com multiplas sessoes, multiplos
 - orquestrador e subagentes (`12`)
 - observabilidade de modelos e agentes (`13`)
 - fases de implementacao executaveis (`15`)
+- por que fase manual antes do framework (`17`)
+- autonomia agentica e guardrails (`18`)
 
 ### Templates (todos obrigatorios, distintos por momento de uso)
 
@@ -96,6 +106,8 @@ Contrato de comportamento da LLM ao usar a base. Define:
 - `12_ORQUESTRADOR_E_SUBAGENTES_PARA_FLUXOS_DE_EXECUCAO.md`
 - `13_OBSERVABILIDADE_DE_MODELOS_E_AGENTES.md`
 - `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`
+- `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md`
+- `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md`
 
 ### Complementar
 
@@ -111,19 +123,24 @@ Contrato de comportamento da LLM ao usar a base. Define:
 |----------|--------|
 | Conceitual | Alta |
 | Operacional | Alta |
-| Templates | Alta — 13 templates, todos com momento de uso definido |
-| KB operacional | Alta — 5 dominios com index + quick-reference |
-| Automacao | Media — gates e scripts existem, CI nao |
+| Templates | Alta — 21 templates, todos com momento de uso definido |
+| KB operacional | Alta — 6 dominios com index + quick-reference (inclui autonomy-guardrails) |
+| Automacao | Alta — gates, scripts, CI/coverage 80% obrigatorio |
 | Pronta para uso real | Sim |
 
 ## O que ainda pode evoluir
 
-Sem bloquear v1.1:
+Aguardando validacao em D4 (Semana AI):
+
+- `templates/TEMPLATE_CREWAI.md` — stack: crewai + crewai-tools + anthropic
+- `templates/TEMPLATE_LANGFUSE.md` — langfuse>=2.50.0, trace→observe→optimize
+- deepeval (`assert score > 0.85`) — avaliar se entra na base apos D4
+- Context decay / Attention Budget — extrair apos Semana AI concluida
+
+Sem data:
 
 - exemplos canonicos completos de projeto gerado com todos os templates
 - convencoes de telemetria e custo por modelo
-- KB adicional: `harness-patterns/` com padroes de projeto recorrentes
-- `prompts/EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md` atualizado com exemplos usando templates
 
 ## Regra de atualizacao da base
 
@@ -134,4 +151,4 @@ Ao atualizar qualquer `.md`:
 
 Em uma frase:
 
-`A base v1.1 e suficientemente madura para iniciar projetos agenticos reais com estrutura, validacao, templates obrigatorios e padroes operacionais prontos para uso.`
+`A base v1.17.0 cobre o ciclo completo: bootstrap, implementacao faseada, validacao deterministica, orquestracao multi-agent, autonomia com guardrails, e progressao manual→framework — pronta para projetos agenticos reais.`

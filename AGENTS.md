@@ -24,8 +24,11 @@ Obrigatorio, nesta ordem:
 4. `.claude/kb/builder-validator/quick-reference.md`
 5. `.claude/kb/model-routing/quick-reference.md`
 6. `.claude/kb/agent-contracts/quick-reference.md`
-7. `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` — seguir checklist item a item
-8. `prompts/PROMPT_MESTRE_INICIAL.md`
+7. `.claude/kb/autonomy-guardrails/quick-reference.md`
+8. `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md` — quando usar framework vs implementacao manual
+9. `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md` — guardrails, JIT context, docstring-as-spec, convergence formula
+10. `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` — seguir checklist item a item
+11. `prompts/PROMPT_MESTRE_INICIAL.md`
 
 ### Ao evoluir projeto existente
 
@@ -262,11 +265,12 @@ Nunca pular etapas. Nunca gerar artefato sem o template correspondente.
 3. **Nunca avancar sem gate aprovado** — gate e criterio de parada, nao sugestao
 4. **Os `.md` da base sao fonte de verdade** — se KB e `.md` conflitarem, prevalece o `.md`
 5. **Atualizar KB ao atualizar `.md`** — as duas fontes devem permanecer consistentes
+6. **`implementation/` obrigatorio em projetos multi-agent** — todo projeto com mais de um agente deve ter diretorio `implementation/` com plano de implementacao por agente antes de codar. Ref: `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`
 
 ## Estrutura da base
 
 ```
-.md (01-15)           fonte de verdade — por que e quando aplicar cada padrao
+.md (01-18)           fonte de verdade — por que e quando aplicar cada padrao
 templates/            moldes obrigatorios — como gerar cada artefato
 .claude/kb/           padroes prontos — como aplicar agora sem reler tudo
 prompts/              prompts reutilizaveis por fase
