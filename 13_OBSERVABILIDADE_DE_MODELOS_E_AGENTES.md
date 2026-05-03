@@ -76,6 +76,8 @@ Regras:
 - `■` gate ou resultado final
 - `✗` etapa com falha — detalhar o erro
 - entre etapas, publicar micro-updates curtos logo apos cada tool call para mostrar progresso continuo
+- quando a interface ou harness resumir, colapsar ou ocultar a atividade, o micro-update no chat deve expandir isso com os nomes reais dos arquivos e comandos
+- quando a interface mostrar varias leituras/comandos em sequencia, sincronizar o chat com granularidade parecida, evitando esperar um resumo em lote
 
 ### Quando LLM foi usada
 
@@ -105,6 +107,26 @@ Coverage, status por agente, inconsistencias encontradas: sempre em tabela markd
 - Status final e tempo de execucao quando relevante
 
 **Por que:** output do Bash fica colapsado na UI do Claude Code. O usuario ve apenas o chat — a narrativa deve ser informativa o suficiente para nao precisar expandir o terminal.
+
+### Regra extra para micro-updates
+
+Um micro-update bom nao diz apenas "li 4 arquivos" ou "rodei 3 comandos".
+Ele diz exatamente quais foram:
+
+```text
+Li `AGENTS.md`, `README.md`, `progress/PROGRESS.md` e `progress/VALIDATION_STATUS.md`.
+Rodei `python execution/run_onboarding_flow.py`, `pytest tests/ -v --tb=short` e `python tools/validate_harness_project.py .`.
+```
+
+Isso evita que a observabilidade dependa de o usuario expandir blocos colapsados da UI.
+
+Melhor ainda quando o fluxo exigir rastreabilidade fina:
+
+```text
+Li `AGENTS.md`. Resultado: regra de execucao confirmada. Proximo passo: abrir `progress/PROGRESS.md`.
+Li `progress/PROGRESS.md`. Resultado: identifiquei a fase pendente. Proximo passo: rodar `pytest tests/ -v --tb=short`.
+Rodei `pytest tests/ -v --tb=short`. Resultado: 12 testes passaram. Proximo passo: abrir `progress/VALIDATION_STATUS.md`.
+```
 
 ## O que mostrar no frontend
 

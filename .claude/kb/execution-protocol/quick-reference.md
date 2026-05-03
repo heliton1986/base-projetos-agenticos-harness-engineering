@@ -73,6 +73,20 @@ Reexecutando: [sim/nao]
 Estado atual: [gate aprovado / bloqueado por: X]
 ```
 
+## Granularidade dos micro-updates
+
+- Nao esperar juntar tudo no fim do gate quando houver varias acoes observaveis relevantes.
+- Preferir o padrao: `1 leitura/comando relevante -> 1 retorno curto no chat`.
+- Se a interface resumir `Explored ...` ou `Ran ...`, expandir isso no chat com os nomes reais dos arquivos e comandos.
+
+Exemplo:
+
+```text
+Li `AGENTS.md`. Resultado: confirmei o protocolo. Proximo passo: abrir `README.md`.
+Li `README.md`. Resultado: localizei o script de onboarding. Proximo passo: rodar `python execution/run_onboarding_flow.py`.
+Rodei `python execution/run_onboarding_flow.py`. Resultado: passou. Proximo passo: rodar `pytest tests/ -v --tb=short`.
+```
+
 ## Criterio de parada
 
 **Parar com sucesso:** fluxo executou + validacao passou + gate aprovado

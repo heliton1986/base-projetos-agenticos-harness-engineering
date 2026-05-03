@@ -167,8 +167,27 @@ Entre uma etapa e outra, nao esperar apenas o resumo final:
 - depois de cada tool call, publicar um micro-resultado curto
 - se houve falha, mostrar o erro e a correcao tentada antes de seguir
 - se houve sucesso, mostrar o que foi validado e qual sera a proxima acao
+- se a interface ou harness resumir, colapsar ou ocultar leituras e comandos, traduzir isso no chat com os nomes reais dos arquivos lidos e dos comandos executados
+- quando houver varias leituras ou comandos importantes em sequencia, nao esperar o bloco do gate: preferir 1 acao observavel relevante -> 1 micro-update
 
 Objetivo: manter visibilidade continua no chat enquanto o fluxo ainda esta em andamento.
+
+Exemplo:
+
+```text
+Micro-resultado:
+- li `AGENTS.md`, `README.md` e `spec/05-validate.md`
+- rodei `python execution/run_onboarding_flow.py` e `pytest tests/ -v --tb=short`
+- ambos passaram; agora vou validar `progress/` com `python tools/validate_harness_project.py .`
+```
+
+Granularidade ideal:
+
+```text
+Li `AGENTS.md`. Resultado: confirmei o protocolo da fase. Proximo passo: abrir `README.md`.
+Li `README.md`. Resultado: localizei o fluxo executavel. Proximo passo: rodar `python execution/run_onboarding_flow.py`.
+Rodei `python execution/run_onboarding_flow.py`. Resultado: passou. Proximo passo: rodar `pytest tests/ -v --tb=short`.
+```
 
 ## Relacao com o onboarding
 
