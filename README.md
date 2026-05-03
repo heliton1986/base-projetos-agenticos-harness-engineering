@@ -177,7 +177,7 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 
 - `TEMPLATE_TASK_CONTRACT.md` — contrato de tarefa por agente (entrada, saida, gate, audit)
 - `TEMPLATE_FIRST_INCREMENTAL_CAPABILITY.md` — definicao da menor capacidade util e verificavel
-- `TEMPLATE_IMPLEMENTATION_PHASE.md` — estrutura de fase com pre-condicoes, passos e gate
+- `TEMPLATE_IMPLEMENTATION_PHASE.md` — estrutura de fase com pre-condicoes, passos, validacoes, artefatos esperados e gate; titulo + 1 frase nao bastam
 - `TEMPLATE_DATA_CONTRACT.md` — contrato de dados (campos, mascaramento, saida consolidada)
 
 ### Antes de subir qualquer agente

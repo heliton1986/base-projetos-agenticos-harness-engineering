@@ -118,6 +118,9 @@ Depois de cada tool call individual, publicar tambem um micro-resultado imediato
 - o que acabou de acontecer
 - se passou, falhou ou ficou pendente
 - qual sera o proximo passo local
+- quais arquivos foram lidos ou explorados, quando a interface ou harness resumir, colapsar ou ocultar essa atividade
+- quais comandos realmente rodaram, quando a interface ou harness resumir, colapsar ou ocultar essa atividade
+- se houve varias leituras ou comandos relevantes, nao esperar acumular um lote grande: relatar logo apos cada acao observavel relevante sempre que possivel
 
 Objetivo: reduzir espera silenciosa e manter o usuario vendo progresso quase em tempo real.
 
@@ -149,12 +152,31 @@ Formato sugerido (adaptar ao dominio do projeto):
 
 - Nunca executar tool call silenciosamente — sempre anunciar antes com contexto
 - Nunca acumular varias acoes silenciosamente para resumir so no fim — cada tool call deve ter retorno curto antes da proxima
+- Nunca depender de resumos genericos da interface ou do harness como unica pista visual — o chat deve nomear explicitamente os arquivos lidos e os comandos executados
+- Quando houver sequencia de leituras/comandos relevantes, preferir granularidade quase item a item: 1 acao observavel relevante -> 1 retorno curto no chat
 - Sempre imprimir tabela de resultado depois de cada fase (nao so APROVADO/FALHOU)
 - **Coluna "Modelo" obrigatoria para todo agente que usa LLM** — nunca omitir. Agente deterministico: coluna omitida ou `— (deterministico)`. Agente LLM: modelo exato (ex: `claude-sonnet-4-6`). Isso vale para fases normais e para verificacao live de UI/API.
 - Se falhou: informar erro exato antes de corrigir
 - Se bloqueio real: parar e explicar o que precisa de intervencao humana
 - Output do Bash fica colapsado na UI — tabela no chat e a unica visibilidade completa para o usuario
 - Sempre preferir bloco estruturado no chat a despejar saida bruta de terminal
+
+Exemplo de micro-resultado bom:
+
+```text
+[Gate 2 — Revalidacao executavel] rodei `python execution/run_onboarding_flow.py`, `pytest tests/ -v --tb=short` e `python tools/validate_harness_project.py .`.
+Li `AGENTS.md`, `README.md`, `progress/PROGRESS.md` e `progress/VALIDATION_STATUS.md`.
+Resultado: onboarding e pytest passaram; o validador encontrou 1 falha em `progress/`.
+Proximo passo: corrigir os dois arquivos de `progress/` e reexecutar o validador.
+```
+
+Exemplo de granularidade ideal:
+
+```text
+Li `AGENTS.md`. Resultado: alinhei o protocolo narrativo que preciso seguir. Proximo passo: abrir `11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md`.
+Li `11_PROTOCOLO_DE_EXECUCAO_AGENTICA.md`. Resultado: encontrei a secao de micro-updates. Proximo passo: editar a regra.
+Rodei `pytest tests/ -v --tb=short`. Resultado: passou. Proximo passo: validar o projeto com `python tools/validate_harness_project.py .`.
+```
 
 ### ValidatorAgent como gate entre fases (obrigatorio)
 
@@ -298,7 +320,8 @@ Nunca pular etapas. Nunca gerar artefato sem o template correspondente.
 4. **Os `.md` da base sao fonte de verdade** — se KB e `.md` conflitarem, prevalece o `.md`
 5. **Atualizar KB ao atualizar `.md`** — as duas fontes devem permanecer consistentes
 6. **`implementation/` obrigatorio em projetos multi-agent** — todo projeto com mais de um agente deve ter diretorio `implementation/` com plano de implementacao por agente antes de codar. Ref: `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`
-7. **Nunca declarar fase com UI/API concluida sem verificacao live** — apos implementar FastAPI, Streamlit ou Chainlit: subir o servico, verificar golden path manualmente (upload real, resposta esperada, sem erro na UI). pytest offline nao substitui verificacao live. Ref: templates `TEMPLATE_FASTAPI.md`, `TEMPLATE_STREAMLIT.md`, `TEMPLATE_CHAINLIT.md`
+7. **Arquivo de fase em `implementation/` nao pode ser placeholder** — titulo + 1 frase nao contam como runbook valido. Cada fase deve seguir o `TEMPLATE_IMPLEMENTATION_PHASE.md` com pre-condicoes, arquivos a ler, passos, validacoes, criterio de aprovacao, artefatos esperados e proxima fase.
+8. **Nunca declarar fase com UI/API concluida sem verificacao live** — apos implementar FastAPI, Streamlit ou Chainlit: subir o servico, verificar golden path manualmente (upload real, resposta esperada, sem erro na UI). pytest offline nao substitui verificacao live. Ref: templates `TEMPLATE_FASTAPI.md`, `TEMPLATE_STREAMLIT.md`, `TEMPLATE_CHAINLIT.md`
 
 ## Estrutura da base
 

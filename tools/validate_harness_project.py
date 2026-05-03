@@ -61,6 +61,38 @@ def _read_text(path: Path) -> str:
         return ""
 
 
+SECOES_IMPLEMENTATION_OBRIGATORIAS = [
+    ("objetivo", r"^##\s+objetivo\b"),
+    ("pre-condicoes", r"^##\s+pre-condicoes\b"),
+    ("arquivos que devem ser lidos antes", r"^##\s+arquivos que devem ser lidos antes\b"),
+    ("passos de execucao", r"^##\s+passos de execucao\b"),
+    ("validacoes obrigatorias", r"^##\s+validacoes obrigatorias\b"),
+    ("politica de correcao", r"^##\s+politica de correcao\b"),
+    ("criterio de aprovacao", r"^##\s+criterio de aprovacao\b"),
+    ("artefatos esperados", r"^##\s+artefatos esperados\b"),
+    ("proxima fase sugerida", r"^##\s+proxima fase sugerida\b"),
+]
+
+
+def _implementation_file_status(path: Path) -> tuple[bool, str]:
+    texto = _read_text(path)
+    if not texto.strip():
+        return False, "arquivo vazio"
+
+    faltando = [
+        nome for nome, padrao in SECOES_IMPLEMENTATION_OBRIGATORIAS
+        if not re.search(padrao, texto, re.IGNORECASE | re.MULTILINE)
+    ]
+    if faltando:
+        return False, f"faltam secoes: {', '.join(faltando)}"
+
+    linhas_nao_vazias = [ln for ln in texto.splitlines() if ln.strip()]
+    if len(linhas_nao_vazias) < 20:
+        return False, "conteudo raso demais para runbook executavel"
+
+    return True, "estrutura minima presente"
+
+
 def _agent_files(root: Path) -> list[Path]:
     agents_dir = root / "src" / "agents"
     if not agents_dir.exists():
@@ -212,6 +244,32 @@ def check_implementation(root: Path) -> tuple[bool, str]:
         return False, "implementation/ existe mas esta vazia (sem runbooks .md)"
 
     return True, f"{len(arquivos)} runbook(s) em implementation/"
+
+
+@check("implementation/ contem runbooks completos")
+def check_implementation_runbooks(root: Path) -> tuple[bool, str]:
+    multi_agent, motivo = _is_multi_agent(root)
+    if not multi_agent:
+        return True, f"nao se aplica — {motivo}"
+
+    impl = root / "implementation"
+    if not impl.exists():
+        return False, "implementation/ ausente"
+
+    arquivos = sorted(impl.glob("*.md"))
+    if not arquivos:
+        return False, "implementation/ existe mas esta vazia (sem runbooks .md)"
+
+    incompletos = []
+    for arquivo in arquivos:
+        ok, detalhe = _implementation_file_status(arquivo)
+        if not ok:
+            incompletos.append(f"{arquivo.name} ({detalhe})")
+
+    if incompletos:
+        return False, f"runbooks incompletos em implementation/: {', '.join(incompletos[:5])}"
+
+    return True, f"{len(arquivos)} runbook(s) com estrutura minima completa"
 
 
 @check("progress/ tem memoria operacional minima", critico=False)

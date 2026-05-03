@@ -13,7 +13,7 @@ Registro sintetico do estado atual da base. Responde diretamente:
 - o que e obrigatorio vs complementar
 - o que ainda pode evoluir
 
-## Versao atual: v1.17.0
+## Versao atual: v1.17.1
 
 ### Historico de evolucao significativa
 
@@ -32,6 +32,11 @@ Registro sintetico do estado atual da base. Responde diretamente:
 - `11_` + `13_`: padrao narrativa no chat (checklist por etapa, agente+modelo, tabelas)
 - Todos os prompts atualizados com refs a 11_/13_/15_/17_/18_
 - Total: 21 templates obrigatorios
+
+**v1.17.1:** endurecimento da camada `implementation/`:
+- `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` agora explicita que titulo + 1 frase nao contam como fase executavel valida
+- `templates/TEMPLATE_IMPLEMENTATION_PHASE.md` agora inclui regra de completude minima
+- `AGENTS.md`, `README.md` e prompts passaram a tratar placeholder curto em `implementation/` como artefato incompleto
 
 ## Diagnostico Geral
 
@@ -151,4 +156,4 @@ Ao atualizar qualquer `.md`:
 
 Em uma frase:
 
-`A base v1.17.0 cobre o ciclo completo: bootstrap, implementacao faseada, validacao deterministica, orquestracao multi-agent, autonomia com guardrails, e progressao manual→framework — pronta para projetos agenticos reais.`
+`A base v1.17.1 cobre o ciclo completo: bootstrap, implementacao faseada, validacao deterministica, orquestracao multi-agent, autonomia com guardrails, e progressao manual→framework — pronta para projetos agenticos reais.`

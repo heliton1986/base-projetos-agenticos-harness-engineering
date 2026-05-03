@@ -11,6 +11,8 @@ A ideia e transformar cada fase importante de implementacao em um guia executave
 - arquivos a consultar
 - passos de execucao
 - validacoes obrigatorias
+- politica de correcao
+- artefatos esperados
 - criterio de aprovacao
 - proximo passo
 
@@ -104,7 +106,35 @@ Uma boa fase executavel deve declarar pelo menos:
 - validacoes obrigatorias
 - politica de correcao
 - criterio de aprovacao
+- artefatos esperados
 - proxima fase sugerida
+
+Se faltar essa estrutura minima, o arquivo nao deve ser tratado como fase executavel valida.
+
+Exemplos que **nao** sao suficientes:
+
+```text
+# Phase 02 - Ingestao
+
+Implementar leitura offline de CSV.
+```
+
+```text
+# Phase 03 - Deteccao Deterministica
+
+Implementar regras fixas antes de qualquer uso de LLM.
+```
+
+Esses exemplos podem servir como lembrete humano, mas nao como runbook para a LLM. Sem pre-condicoes, arquivos a ler, passos, validacoes e criterio de aprovacao, o agente improvisa a execucao.
+
+### Regra pratica de conformidade
+
+Para considerar `implementation/` conforme:
+
+- cada fase ativa precisa seguir a estrutura minima do template
+- uma fase com apenas titulo + 1 frase deve ser tratada como incompleta
+- em projeto multi-agent, fase incompleta em `implementation/` significa harness incompleto da execucao
+- a LLM deve corrigir esse arquivo antes de usar a fase como guia operacional
 
 ### Gate adicional para fases com UI ou API
 

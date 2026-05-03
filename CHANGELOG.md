@@ -5,6 +5,16 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 ---
 
+## [1.17.1] - 2026-05-03
+
+### Corrigido
+
+- `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` — deixou explicito que arquivo em `implementation/` com apenas titulo + 1 frase nao cumpre o papel de fase executavel
+- `templates/TEMPLATE_IMPLEMENTATION_PHASE.md` — adicionada regra de completude minima para runbooks de fase
+- `AGENTS.md`, `README.md`, `prompts/PROMPT_NOVO_PROJETO.md`, `prompts/PROMPTS_POR_FASE.md` e `prompts/PROMPTS_FINANCEOPS_V2_POR_FASE.md` — placeholder curto em `implementation/` passa a ser tratado como artefato incompleto
+
+---
+
 ## [1.7.0] - 2026-04-30
 
 ### Adicionado

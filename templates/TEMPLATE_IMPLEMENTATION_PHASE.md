@@ -65,3 +65,29 @@ Quando esta fase for a fase ativa do projeto, a LLM deve:
 3. aplicar validacao e correcao quando necessario
 4. reportar no chat o progresso da fase
 5. so seguir adiante se a fase estiver aprovada
+
+## Regra de completude
+
+Este arquivo nao pode ser reduzido a apenas titulo + 1 frase.
+
+Se faltar qualquer bloco essencial abaixo, a fase deve ser tratada como incompleta:
+
+- Objetivo
+- Pre-condicoes
+- Arquivos que devem ser lidos antes
+- Passos de Execucao
+- Validacoes Obrigatorias
+- Politica de Correcao
+- Criterio de Aprovacao
+- Artefatos Esperados
+- Proxima Fase Sugerida
+
+Exemplo insuficiente:
+
+```text
+# Phase 02 - Ingestao
+
+Implementar leitura offline de CSV.
+```
+
+Isso nao e runbook executavel; e apenas lembrete curto.

@@ -150,7 +150,7 @@ Aguardando respostas para continuar.
 
 Gerar: README.md, AGENTS.md, spec/, directives/domain.md, directives/business-rules.md, .env.example, progress/PROGRESS.md, progress/VALIDATION_STATUS.md
 
-Se o projeto for multi-agent (CrewAI, LangGraph com multiplos nos, handoff entre agentes): criar tambem `implementation/` com runbooks de fase. Obrigatorio — nao opcional. Ver `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`.
+Se o projeto for multi-agent (CrewAI, LangGraph com multiplos nos, handoff entre agentes): criar tambem `implementation/` com runbooks de fase. Obrigatorio — nao opcional. Cada arquivo de fase deve seguir o `TEMPLATE_IMPLEMENTATION_PHASE.md`; titulo + 1 frase nao contam como runbook valido. Ver `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md`.
 
 Usar templates da base para cada artefato.
 

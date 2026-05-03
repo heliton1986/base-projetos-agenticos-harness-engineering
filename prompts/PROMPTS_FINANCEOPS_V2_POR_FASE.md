@@ -62,6 +62,7 @@ Regras especificas deste bootstrap:
 - usar `contracts/*.md` para task contracts, contratos documentais e invariantes de fase/capacidade
 - usar `src/contracts/*.py` para contratos executaveis tipados usados em runtime
 - como o projeto e multi-agent, `implementation/` e obrigatorio desde o bootstrap
+- cada arquivo em `implementation/` deve seguir o template de fase; titulo + 1 frase nao bastam
 - criar `progress/PROGRESS.md` e `progress/VALIDATION_STATUS.md` ja na primeira entrega
 - preparar o projeto para testes offline antes de qualquer migracao futura para framework
 
@@ -106,6 +107,7 @@ Verifique:
 - qualidade das directives/
 - qualidade da spec/
 - clareza de `implementation/`
+- se `implementation/` contem runbooks completos ou apenas placeholders
 - separacao correta entre `contracts/*.md` e `src/contracts/*.py`
 - clareza de handoff entre agentes
 - estrategia de modelos em `model_routing.yaml`
