@@ -40,8 +40,8 @@ Se for a primeira vez usando a base, a ordem recomendada é:
 2. `02_DOE_OPERACIONAL_PARA_HARNESS.md`
 3. `03_BOOTSTRAP_PROJETO_AGENTICO.md`
 4. `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md`
-5. `prompts/PROMPT_MESTRE_INICIAL.md`
-6. `prompts/PROMPTS_POR_FASE.md`
+5. `prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md`
+6. `prompts/base-generica/PROMPTS_FASEADOS_BASE.md`
 
 Depois, conforme a necessidade, use os documentos complementares.
 
@@ -121,31 +121,48 @@ Explica como criar novos tipos de agentes na base sem perder clareza, handoff, v
 
 ## Pasta prompts/
 
-A pasta `prompts/` reúne os prompts reutilizáveis para usar a base.
+A pasta `prompts/` agora foi separada em dois niveis:
 
-### PROMPT_MESTRE_INICIAL.md
+- `prompts/base-generica/` — metodologia reutilizavel da base
+- `prompts/projetos/` — prompts concretos e templates por projeto
+### prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md
 
 Prompt de **definicao** — para apos Fase 1 e aguarda aprovacao antes de criar arquivos. Indicado para projetos com dominio a explorar.
 
-### PROMPT_NOVO_PROJETO.md
+### prompts/base-generica/PROMPT_EXECUCAO_AUTONOMA_PROJETO.md
 
 Prompt de **execucao autonoma** — cria o projeto completo do zero sem aprovacao fase a fase, com gates embutidos e obrigatorios. Indicado para projetos com brief claro e dominio conhecido.
 Este e o **modo operacional padrao** que a base quer privilegiar no estado maduro.
 
-### PROMPTS_POR_FASE.md
+### prompts/base-generica/PROMPTS_FASEADOS_BASE.md
 
 Prompts **modulares** — um por fase (definicao, bootstrap, validacao, implementacao, expansao). Usar quando quiser controle granular aprovando fase por fase.
 Tambem e o modo recomendado para **validacao da propria base**, projetos canonicos e casos onde voce quer auditar a aderencia estrutural antes de deixar a execucao seguir sozinha.
 
-### EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md
+### prompts/base-generica/EXEMPLOS_PREENCHIMENTO_PROMPT_DEFINICAO_PROJETO.md
 
 Exemplos prontos de preenchimento dos campos dos prompts acima. Usar como referencia — nunca enviar como prompt diretamente.
 
+### prompts/projetos/
+
+- `TEMPLATE_PROMPT_PROJETO_CANONICO.md` — template obrigatorio para o prompt canonico de qualquer projeto derivado
+- `TEMPLATE_PROMPTS_PROJETO_POR_FASE.md` — template para a trilha faseada do projeto quando houver teste ou validacao controlada
+- `financeops-v2/` — exemplo concreto com prompt canonico e prompts por fase especializados
+
 **Ordem de uso:**
-- Dominio incerto: `PROMPT_MESTRE_INICIAL.md` → `PROMPTS_POR_FASE.md`
-- Brief claro: `PROMPT_NOVO_PROJETO.md` direto
-- Validacao da base / caso canonico / recriacao controlada: `PROMPT_MESTRE_INICIAL.md` → `PROMPTS_POR_FASE.md`
-- Referencia de preenchimento: `EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md` (consulta, nao prompt)
+- Dominio incerto: `prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md` → criar `prompts/projetos/[projeto]/PROMPT_[PROJETO]_CANONICO.md` → usar `prompts/projetos/[projeto]/PROMPTS_[PROJETO]_POR_FASE.md` quando houver validacao faseada
+- Brief claro: `prompts/base-generica/PROMPT_EXECUCAO_AUTONOMA_PROJETO.md` direto
+- Validacao da base / caso canonico / recriacao controlada: `prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md` → `prompts/projetos/[projeto]/PROMPT_[PROJETO]_CANONICO.md` → `prompts/projetos/[projeto]/PROMPTS_[PROJETO]_POR_FASE.md`
+- Referencia de preenchimento: `prompts/base-generica/EXEMPLOS_PREENCHIMENTO_PROMPT_DEFINICAO_PROJETO.md` (consulta, nao prompt)
+
+**Classificacao obrigatoria no inicio do projeto:**
+- `operacional_simples`
+- `validado_por_fases`
+- `canonico_ou_referencia`
+
+Regra:
+- `PROMPT_[PROJETO]_CANONICO.md` sempre
+- `PROMPTS_[PROJETO]_POR_FASE.md` quando o projeto for `validado_por_fases` ou `canonico_ou_referencia`
 
 ## Pasta exemplos/
 
@@ -209,8 +226,8 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 - `02_DOE_OPERACIONAL_PARA_HARNESS.md`
 - `03_BOOTSTRAP_PROJETO_AGENTICO.md`
 - `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` — obrigatorio antes de gerar README e AGENTS.md
-- `prompts/PROMPT_MESTRE_INICIAL.md`
-- `prompts/PROMPTS_POR_FASE.md`
+- `prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md`
+- `prompts/base-generica/PROMPTS_FASEADOS_BASE.md`
 
 ### Obrigatorio em todo projeto com gates e capacidades
 
@@ -250,14 +267,15 @@ Use o template correspondente antes de gerar cada artefato. Nunca gerar do zero 
 Fluxo recomendado:
 
 1. ler o nucleo da base
-2. usar o `PROMPT_MESTRE_INICIAL.md`
+2. usar `prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md`
 3. definir o projeto sem implementar de imediato
-4. usar os `PROMPTS_POR_FASE.md`
-5. bootstrapar o projeto com `README.md`, `directives/`, `spec/`, `implementation/`, `execution/`, `AGENTS.md`
-6. **usar `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` para validar que README e AGENTS.md cobrem todos os contratos antes de implementar** — sem esse passo, artefatos ficam incompletos
-7. **definir estrategia de modelos por agente antes de implementar** (`10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md`) — evita colocar LLM onde logica deterministica basta
-8. validar a base antes de implementar a primeira capacidade
-9. quando a primeira capacidade existir, expor um comando unico de onboarding para primeira execucao
+4. criar `prompts/projetos/[projeto]/PROMPT_[PROJETO]_CANONICO.md`
+5. usar `prompts/projetos/[projeto]/PROMPTS_[PROJETO]_POR_FASE.md` quando houver validacao faseada
+6. bootstrapar o projeto com `README.md`, `directives/`, `spec/`, `implementation/`, `execution/`, `AGENTS.md`
+7. **usar `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` para validar que README e AGENTS.md cobrem todos os contratos antes de implementar** — sem esse passo, artefatos ficam incompletos
+8. **definir estrategia de modelos por agente antes de implementar** (`10_ESTRATEGIA_DE_MODELOS_PARA_AGENTES.md`) — evita colocar LLM onde logica deterministica basta
+9. validar a base antes de implementar a primeira capacidade
+10. quando a primeira capacidade existir, expor um comando unico de onboarding para primeira execucao
 
 ## Estrutura esperada de um novo projeto
 

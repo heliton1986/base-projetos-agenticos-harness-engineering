@@ -37,6 +37,7 @@ Registro sintetico do estado atual da base. Responde diretamente:
 - `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` agora explicita que titulo + 1 frase nao contam como fase executavel valida
 - `templates/TEMPLATE_IMPLEMENTATION_PHASE.md` agora inclui regra de completude minima
 - `AGENTS.md`, `README.md` e prompts passaram a tratar placeholder curto em `implementation/` como artefato incompleto
+- `19_MAPEAMENTO_PROMPTS_VS_IMPLEMENTATION_FINANCEOPS.md` documenta a diferenca entre macrofases da base, fases especializadas do FinanceOps e runbooks de `implementation/`
 
 ## Diagnostico Geral
 
@@ -99,8 +100,8 @@ Contrato de comportamento da LLM ao usar a base. Define:
 - `02_DOE_OPERACIONAL_PARA_HARNESS.md`
 - `03_BOOTSTRAP_PROJETO_AGENTICO.md`
 - `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md`
-- `prompts/PROMPT_MESTRE_INICIAL.md`
-- `prompts/PROMPTS_POR_FASE.md`
+- `prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md`
+- `prompts/base-generica/PROMPTS_FASEADOS_BASE.md`
 
 ### Obrigatorio em todo projeto com gates e capacidades
 
@@ -120,7 +121,7 @@ Contrato de comportamento da LLM ao usar a base. Define:
 - `08_ESTRUTURA_OPCIONAL_KB_REFERENCES_VISUALS_EXAMPLES.md`
 - `09_TEMPLATES_PARA_BASE_HARNESS.md`
 - `14_EXPANSAO_DE_PAPEIS_AGENTICOS.md`
-- `prompts/EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md`
+- `prompts/base-generica/EXEMPLOS_PREENCHIMENTO_PROMPT_DEFINICAO_PROJETO.md`
 
 ## Maturidade por dimensao
 

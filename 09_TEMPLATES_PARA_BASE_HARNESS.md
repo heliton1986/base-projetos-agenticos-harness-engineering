@@ -80,7 +80,7 @@ templates/
 ## Relacao com outros artefatos da base
 
 - `04_CHECKLIST_PARA_GERAR_AGENTS_MD.md` — lista qual template usar em cada etapa do checklist
-- `prompts/PROMPTS_POR_FASE.md` — define quando acionar cada template por fase
+- `prompts/base-generica/PROMPTS_FASEADOS_BASE.md` — define quando acionar cada template por fase
 - `.claude/kb/` — padroes prontos que complementam os templates com quick-references
 
 ## Conclusao

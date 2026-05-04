@@ -36,7 +36,7 @@ Obrigatorio, nesta ordem:
 16. `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` — ordem de entrega incremental verificavel
 17. `17_POR_QUE_FASE_MANUAL_ANTES_DO_FRAMEWORK.md` — quando usar framework vs implementacao manual
 18. `18_AUTONOMIA_AGENTICA_E_GUARDRAILS.md` — guardrails, JIT context, docstring-as-spec, convergence formula
-19. `prompts/PROMPT_MESTRE_INICIAL.md`
+19. `prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md`
 
 Obrigatorio por contexto ao criar projeto novo:
 
@@ -46,6 +46,8 @@ Obrigatorio por contexto ao criar projeto novo:
 Complementar:
 
 - `08_ESTRUTURA_OPCIONAL_KB_REFERENCES_VISUALS_EXAMPLES.md` — camada opcional de apoio, exemplos, references e visuals
+- `prompts/projetos/TEMPLATE_PROMPT_PROJETO_CANONICO.md` — usar para criar o prompt canonico obrigatorio do projeto
+- `prompts/projetos/TEMPLATE_PROMPTS_PROJETO_POR_FASE.md` — usar quando o projeto entrar em validacao controlada ou execucao faseada
 
 ### Ao evoluir projeto existente
 

@@ -11,7 +11,11 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 - `15_FASES_DE_IMPLEMENTACAO_EXECUTAVEIS.md` — deixou explicito que arquivo em `implementation/` com apenas titulo + 1 frase nao cumpre o papel de fase executavel
 - `templates/TEMPLATE_IMPLEMENTATION_PHASE.md` — adicionada regra de completude minima para runbooks de fase
-- `AGENTS.md`, `README.md`, `prompts/PROMPT_NOVO_PROJETO.md`, `prompts/PROMPTS_POR_FASE.md` e `prompts/PROMPTS_FINANCEOPS_V2_POR_FASE.md` — placeholder curto em `implementation/` passa a ser tratado como artefato incompleto
+- `AGENTS.md`, `README.md`, `prompts/base-generica/PROMPT_EXECUCAO_AUTONOMA_PROJETO.md`, `prompts/base-generica/PROMPTS_FASEADOS_BASE.md` e `prompts/projetos/financeops-v2/PROMPTS_FINANCEOPS_V2_POR_FASE.md` — placeholder curto em `implementation/` passa a ser tratado como artefato incompleto
+
+### Adicionado
+
+- `19_MAPEAMENTO_PROMPTS_VS_IMPLEMENTATION_FINANCEOPS.md` — leitura por niveis entre prompts da base, prompts de projeto e `implementation/*.md`
 
 ---
 
@@ -50,7 +54,7 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 ### Corrigido
 
-- Caminhos hardcoded `/var/home/heliton/...` em `prompts/PROMPT_MESTRE_INICIAL.md` e `prompts/PROMPTS_POR_FASE.md` → substituídos por `[HARNESS_BASE_PATH]`
+- Caminhos hardcoded `/var/home/heliton/...` em `prompts/base-generica/PROMPT_DEFINICAO_PROJETO.md` e `prompts/base-generica/PROMPTS_FASEADOS_BASE.md` → substituídos por `[HARNESS_BASE_PATH]`
 
 ---
 
@@ -62,7 +66,7 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 - 13 templates cobrindo todas as fases do projeto agentico
 - 5 domínios KB em `.claude/kb/` (doe, builder-validator, execution-protocol, model-routing, agent-contracts)
 - `AGENTS.md` — contrato de comportamento da LLM para esta base
-- `prompts/` — PROMPT_MESTRE_INICIAL.md e PROMPTS_POR_FASE.md
+- `prompts/base-generica/` — PROMPT_DEFINICAO_PROJETO.md e PROMPTS_FASEADOS_BASE.md
 - `README.md` da base
 
 ---
