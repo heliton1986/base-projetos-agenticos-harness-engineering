@@ -17,6 +17,10 @@ Versionamento: [Semantic Versioning](https://semver.org/lang/pt-BR/)
 
 - `19_MAPEAMENTO_PROMPTS_VS_IMPLEMENTATION_FINANCEOPS.md` — leitura por niveis entre prompts da base, prompts de projeto e `implementation/*.md`
 
+### Removido
+
+- aliases antigos em `prompts/` (`PROMPT_MESTRE_INICIAL.md`, `PROMPT_NOVO_PROJETO.md`, `PROMPTS_POR_FASE.md`, `EXEMPLOS_PREENCHIMENTO_PROMPT_MESTRE.md`, `PROMPT_FINANCEOPS_V2_CANONICO.md`, `PROMPTS_FINANCEOPS_V2_POR_FASE.md`) — os nomes novos passam a ser a unica fonte oficial
+
 ---
 
 ## [1.7.0] - 2026-04-30
